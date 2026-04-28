@@ -3,22 +3,40 @@ import { Terminal } from 'lucide-react';
 
 const mockExperience = [
   {
-    timestamp: '2023-10-15 09:30:00 UTC',
-    action: 'Orchestrated migration of legacy on-prem infrastructure to AWS',
-    status: 'SUCCESS',
-    details: 'Reduced operational costs by 35% and improved uptime to 99.99%.'
-  },
-  {
-    timestamp: '2022-06-20 14:15:22 UTC',
-    action: 'Implemented Zero Trust Security Architecture across enterprise',
+    timestamp: '2025-Present UTC',
+    action: 'Security Project Manager | Employ',
     status: 'IN PROGRESS',
-    details: 'Rolling out MFA and identity-aware proxies to 5,000+ employees.'
+    details: 'Planned and Executed roll out of Rapid7 and Cobalt Integration into core products for real-time monitoring and penetration testing on AWS, GCP and Azure assets and user end points. Lead the charge on SOC 2 Type II, ISO 27001, GRC and GDPR/CCPA audits. Spearheaded a cross-functional initiative between DevOps and Engineering to prioritize and remediate critical security vulnerabilities. Developed and managed a robust vendor risk assessment framework.'
   },
   {
-    timestamp: '2021-03-10 11:05:45 UTC',
-    action: 'Led SOC 2 Type II compliance audit',
+    timestamp: '2020-2025 UTC',
+    action: 'Trust and Safety Specialist | Amazon Web Services',
     status: 'SUCCESS',
-    details: 'Achieved certification with zero non-conformities.'
+    details: 'Developed and maintained escalation processes and SOPs to exceed SLAs. Managed escalated Tier 3 incidents using internal ticketing systems. Reviewed abuse reports, conducted root cause analysis and suggest architectural changes. Interim manager for 14 weeks and project manager for 5+ projects.'
+  },
+  {
+    timestamp: '2019-2020 UTC',
+    action: 'Virtual Customer Service Associate | Amazon',
+    status: 'SUCCESS',
+    details: 'Investigated and resolved customer issues while meeting target KPIs and 99% positive customer experience score.'
+  },
+  {
+    timestamp: '2018-2018 UTC',
+    action: 'Senior Technical Support Associate | Tech Mahindra Limited',
+    status: 'SUCCESS',
+    details: 'Provided Technical Support and Network Engineering for a US-based Fortune 50 client. Identified and improved 3 escalation processes by applying advanced analytical and troubleshooting strategies.'
+  },
+  {
+    timestamp: '2017-2018 UTC',
+    action: 'Trainee Information Security Associate | SecuArk Private Limited',
+    status: 'SUCCESS',
+    details: 'Conducted Vulnerability Assessment and Penetration Testing (Application and Network). Designed, developed, and supported implementation of 5+ project-specific security solutions.'
+  },
+  {
+    timestamp: '2016-2017 UTC',
+    action: 'Support Consultant | Open Destinations Infotech. Pvt. Ltd',
+    status: 'SUCCESS',
+    details: 'Handled client escalations related to new releases and created incident impact documents. Managed a portfolio of key accounts, including onboarding, product training, and quarterly business reviews.'
   }
 ];
 
@@ -34,13 +52,13 @@ const Experience = () => {
         {mockExperience.map((log, index) => (
           <div key={index} className="border-b border-border/50 pb-4 last:border-0 last:pb-0">
             <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4 mb-2">
-              <span className="text-gray-500 shrink-0">[{log.timestamp}]</span>
+              <span className="text-gray-500 shrink-0 min-w-[180px]">[{log.timestamp}]</span>
               <div className="flex-1">
                 <span className="text-primary font-bold">ACTION: </span>
                 <span className="text-gray-300">{log.action}</span>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4 ml-0 md:ml-[230px]">
+            <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4 ml-0 md:ml-[195px]">
               <div className="flex items-center gap-2">
                 <span className="text-primary font-bold">STATUS: </span>
                 <span className={`px-2 py-0.5 rounded text-xs font-bold ${
@@ -50,7 +68,7 @@ const Experience = () => {
                 </span>
               </div>
             </div>
-            <div className="mt-2 text-gray-400 ml-0 md:ml-[230px]">
+            <div className="mt-2 text-gray-400 ml-0 md:ml-[195px]">
               <span className="text-gray-600">Details: </span>
               {log.details}
             </div>
