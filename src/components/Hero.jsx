@@ -29,25 +29,25 @@ const Hero = () => {
       />
 
       {/* Main Content Rendered Behind/Around Terminal - Appears at uiStep >= 2 */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 px-6 mt-[-100px]">
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 px-6">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ 
             opacity: uiStep >= 2 ? 1 : 0, 
-            y: uiStep >= 2 ? 0 : 30,
+            y: uiStep >= 2 ? -40 : 30,
             scale: uiStep >= 2 ? 1 : 0.95
           }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-center"
         >
           <div className="flex items-center justify-center gap-2 mb-4 text-primary">
-            <ShieldCheck className="w-8 h-8" />
-            <span className="font-mono text-sm font-bold tracking-widest uppercase">System Initialized</span>
+            <ShieldCheck className="w-8 h-8 md:w-10 md:h-10" />
+            <span className="font-mono text-sm md:text-base font-bold tracking-widest uppercase">System Initialized</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl">
             NIMI <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-300">KURIAKOSE</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-mono mb-8 max-w-3xl mx-auto">
+          <p className="text-2xl md:text-3xl text-gray-400 font-mono mb-10 max-w-4xl mx-auto drop-shadow-lg">
             Security Project Manager & Trust & Safety SME
           </p>
         </motion.div>
@@ -85,9 +85,13 @@ const Hero = () => {
         drag 
         dragConstraints={containerRef}
         dragElastic={0.1}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, scale: 0.9, y: 0 }}
+        animate={{ 
+          opacity: 1, 
+          scale: uiStep >= 2 ? 0.75 : 1,
+          y: uiStep >= 2 ? "25vh" : 0
+        }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
         className="w-full max-w-2xl bg-panel rounded-lg border border-border shadow-2xl overflow-hidden relative z-20 backdrop-blur-md bg-opacity-90"
       >
         {/* Terminal Header - Drag Handle */}
