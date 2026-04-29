@@ -2,6 +2,9 @@ import React from 'react';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import ImpactDashboard from './components/ImpactDashboard';
+import StakeholderComments from './components/StakeholderComments';
+import MethodologyWiki from './components/MethodologyWiki';
 import Skills from './components/Skills';
 import CommandPalette from './components/CommandPalette';
 import Contact from './components/Contact';
@@ -15,6 +18,9 @@ function App() {
         <Experience />
       </div>
       <Projects />
+      <ImpactDashboard />
+      <MethodologyWiki />
+      <StakeholderComments />
       <Skills />
       <Contact />
       <CommandPalette />
