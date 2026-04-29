@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
-import { AlertCircle, Calendar, CheckSquare, Clock, Globe, Mail, MoreHorizontal, Shield } from 'lucide-react';
+import { AlertCircle, CheckSquare, Clock, Globe, Mail, MoreHorizontal, Shield, MapPin, Briefcase, Download } from 'lucide-react';
 
 const Hero = () => {
   const [checklist, setChecklist] = useState(0);
@@ -24,7 +24,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-1.5 px-2 py-1 bg-success/10 text-success rounded-full border border-success/20">
               <div className="w-2 h-2 rounded-full bg-success"></div>
-              <span>OPEN TO WORK</span>
+              <span>EVALUATING OPPORTUNITIES</span>
             </div>
           </div>
         </div>
@@ -42,38 +42,44 @@ const Hero = () => {
               <span>Assignee: <span className="text-gray-200 font-medium">Nimi Kuriakose</span></span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>Due: <span className="text-gray-200">Continuous</span></span>
+              <Briefcase className="w-4 h-4" />
+              <span>Role: <span className="text-gray-200">Security Project Manager</span></span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>Est: <span className="text-gray-200">Long-term impact</span></span>
+              <span>Velocity: <span className="text-gray-200">8+ Years Exp.</span></span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span>Location: <span className="text-gray-200">Remote / Hybrid</span></span>
             </div>
           </div>
 
           {/* Description Section */}
           <div className="mb-8">
-            <h3 className="text-gray-400 font-medium mb-3 flex items-center gap-2">Description</h3>
+            <h3 className="text-gray-400 font-medium mb-3 flex items-center gap-2">Epic Summary</h3>
             <div className="bg-console border border-border rounded-lg p-5 font-mono text-gray-300 min-h-[140px] leading-relaxed relative">
               <TypeAnimation
                 sequence={[
-                  1000,
-                  '**As a** forward-thinking tech organization,\n',
-                  1000,
-                  '**As a** forward-thinking tech organization,\n**I need** a Project Manager who bridges the gap between engineering and compliance,\n',
-                  1000,
-                  '**As a** forward-thinking tech organization,\n**I need** a Project Manager who bridges the gap between engineering and compliance,\n**so that** we can ship secure, scalable solutions on time.',
-                  1000,
+                  500,
+                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\n',
+                  500,
+                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\n',
+                  500,
+                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\nFocus areas: Risk mitigation, workflow automation, and scaling Agile methodologies across enterprise teams.',
+                  500,
                   () => setChecklist(1),
-                  500,
+                  300,
                   () => setChecklist(2),
-                  500,
-                  () => setChecklist(3)
+                  300,
+                  () => setChecklist(3),
+                  300,
+                  () => setChecklist(4)
                 ]}
                 wrapper="div"
                 cursor={true}
                 repeat={0}
-                speed={75}
+                speed={85}
                 style={{ whiteSpace: 'pre-line' }}
               />
             </div>
@@ -81,11 +87,12 @@ const Hero = () => {
 
           {/* Checklist Section */}
           <div className="mb-8 space-y-3">
-            <h3 className="text-gray-400 font-medium mb-3">Acceptance Criteria</h3>
+            <h3 className="text-gray-400 font-medium mb-3">Definition of Done (DoD)</h3>
             {[
-              { step: 1, text: 'Demonstrated AWS/GCP Security Expertise' },
-              { step: 2, text: 'Proven Risk Mitigation & Compliance Auditing (SOC2/ISO27001)' },
-              { step: 3, text: 'Consistent Agile Delivery & Cross-Functional Leadership' }
+              { step: 1, text: 'End-to-end management of complex cloud security initiatives.' },
+              { step: 2, text: 'Advanced proficiency in Agile, Jira, and Salesforce ecosystems.' },
+              { step: 3, text: 'Seamless coordination of compliance audits and risk remediation.' },
+              { step: 4, text: 'Aligning C-suite strategy with engineering execution.' }
             ].map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -104,26 +111,37 @@ const Hero = () => {
           {/* Action Buttons */}
           <motion.div 
             initial={{ opacity: 0 }}
-            animate={{ opacity: checklist >= 3 ? 1 : 0 }}
-            transition={{ delay: 0.5 }}
+            animate={{ opacity: checklist >= 4 ? 1 : 0 }}
+            transition={{ delay: 0.2 }}
             className="flex flex-wrap items-center gap-4 pt-4 border-t border-border mt-4"
           >
             <button 
               onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
               className="px-6 py-2.5 bg-primary text-console rounded-md font-bold hover:bg-primary-light transition-colors"
             >
-              Start Sprint
+              View Roadmap
             </button>
-            <div className="flex gap-2">
-              <a href="https://www.linkedin.com/in/nimik" target="_blank" rel="noreferrer" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all">
+            <button 
+              onClick={() => alert('Downloading Secure Resume...')}
+              className="px-6 py-2.5 bg-console text-gray-200 border border-border rounded-md font-bold hover:text-white hover:border-gray-500 transition-colors flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Download Resume
+            </button>
+
+            <div className="flex gap-2 ml-auto md:ml-4">
+              <a href="https://www.linkedin.com/in/nimik" target="_blank" rel="noreferrer" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0">
                 <Globe className="w-5 h-5" />
               </a>
-              <a href="mailto:nimikuriakose123@gmail.com" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all">
+              <button 
+                onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0"
+              >
                 <Mail className="w-5 h-5" />
-              </a>
+              </button>
             </div>
-            <div className="flex-1"></div>
-            <button className="p-2.5 text-gray-500 hover:text-gray-300 bg-console rounded-md border border-border">
+            <div className="flex-1 hidden lg:block"></div>
+            <button className="p-2.5 text-gray-500 hover:text-gray-300 bg-console rounded-md border border-border hidden lg:block flex-shrink-0">
               <MoreHorizontal className="w-5 h-5" />
             </button>
           </motion.div>
