@@ -47,7 +47,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>Velocity: <span className="text-gray-200">8+ Years Exp.</span></span>
+              <span>Velocity: <span className="text-gray-200">10+ Years Exp.</span></span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
