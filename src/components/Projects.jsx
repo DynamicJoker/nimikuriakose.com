@@ -1,31 +1,13 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Layout, Lock, Unlock, CheckCircle2, CircleDashed, MoreHorizontal, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'motion/react';
+import { Layout, Lock, Unlock, CircleCheck, CircleDashed, MoreHorizontal, MessageSquare } from 'lucide-react';
+import siteConfig from '../data/siteConfig';
+import { completedProjects, backlogProjects, inProgressProjects } from '../data/projects';
 
-const mockProjects = [
-  {
-    id: 'SEC-101',
-    title: 'Cloud Security Posture Management',
-    type: 'Epic',
-    points: 8,
-    description: 'Deployed automated compliance checks across AWS, GCP, and Azure using Terraform and customized security rules. Remediation workflows reduced vulnerabilities by 80% within 3 months.'
-  },
-  {
-    id: 'SEC-102',
-    title: 'Enterprise Identity Migration',
-    type: 'Task',
-    points: 5,
-    description: 'Managing the migration of 10,000+ internal user accounts from legacy Active Directory to Okta. Integrating SSO for 50+ critical internal applications.'
-  },
-  {
-    id: 'SEC-103',
-    title: 'Kubernetes Cluster Hardening',
-    type: 'Story',
-    points: 3,
-    description: 'Implemented network policies, RBAC tuning, and container vulnerability scanning in CI/CD pipeline. Achieved CIS benchmark compliance score of 98%.'
-  }
-];
-
+/**
+ * ProjectCard – Renders a single project "ticket" with a decrypt reveal.
+ * Used inside the "Done" column of the sprint board.
+ */
 const ProjectCard = ({ project }) => {
   const [isDecrypted, setIsDecrypted] = useState(false);
 
@@ -76,6 +58,10 @@ const ProjectCard = ({ project }) => {
   );
 };
 
+/**
+ * Projects section — Jira-style sprint board with Backlog, In Progress, and Done columns.
+ * Data is sourced from src/data/projects.js for easy updates.
+ */
 const Projects = () => {
   return (
     <section className="py-20 px-6 max-w-[1400px] mx-auto">
@@ -86,7 +72,7 @@ const Projects = () => {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center -space-x-2">
-            <div className="w-8 h-8 rounded-full border-2 border-console bg-primary/20 flex items-center justify-center text-xs font-bold text-primary z-30">NK</div>
+            <div className="w-8 h-8 rounded-full border-2 border-console bg-primary/20 flex items-center justify-center text-xs font-bold text-primary z-30">{siteConfig.initials}</div>
             <div className="w-8 h-8 rounded-full border-2 border-console bg-border z-20"></div>
             <div className="w-8 h-8 rounded-full border-2 border-console bg-border z-10"></div>
           </div>
@@ -102,17 +88,15 @@ const Projects = () => {
               <CircleDashed className="w-4 h-4 text-gray-500" />
               BACKLOG
             </h3>
-            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">2</span>
+            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">{backlogProjects.length}</span>
           </div>
           <div className="space-y-4">
-            <div className="bg-panel border border-border rounded-lg p-4 shadow-sm opacity-60">
-              <span className="text-xs font-mono text-gray-500">SEC-104</span>
-              <h3 className="font-medium text-gray-300 text-sm mt-1">Implement Zero Trust Architecture v2</h3>
-            </div>
-            <div className="bg-panel border border-border rounded-lg p-4 shadow-sm opacity-60">
-              <span className="text-xs font-mono text-gray-500">SEC-105</span>
-              <h3 className="font-medium text-gray-300 text-sm mt-1">Vendor Risk Assessment Overhaul</h3>
-            </div>
+            {backlogProjects.map((item) => (
+              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm opacity-60">
+                <span className="text-xs font-mono text-gray-500">{item.id}</span>
+                <h3 className="font-medium text-gray-300 text-sm mt-1">{item.title}</h3>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -123,17 +107,19 @@ const Projects = () => {
               <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
               IN PROGRESS
             </h3>
-            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">1</span>
+            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">{inProgressProjects.length}</span>
           </div>
           <div className="space-y-4">
-            <div className="bg-panel border border-border rounded-lg p-4 shadow-sm border-l-2 border-l-primary">
-              <span className="text-xs font-mono text-gray-500">SEC-106</span>
-              <h3 className="font-medium text-gray-200 text-sm mt-1">Automate ISO 27001 Evidence Collection</h3>
-              <div className="flex items-center gap-2 mt-3">
-                 <div className="w-full bg-border rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full w-[60%]"></div></div>
-                 <span className="text-[10px] text-gray-500 font-mono">60%</span>
+            {inProgressProjects.map((item) => (
+              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm border-l-2 border-l-primary">
+                <span className="text-xs font-mono text-gray-500">{item.id}</span>
+                <h3 className="font-medium text-gray-200 text-sm mt-1">{item.title}</h3>
+                <div className="flex items-center gap-2 mt-3">
+                   <div className="w-full bg-border rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full" style={{ width: `${item.progress}%` }}></div></div>
+                   <span className="text-[10px] text-gray-500 font-mono">{item.progress}%</span>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -141,13 +127,13 @@ const Projects = () => {
         <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[400px]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-success" />
+              <CircleCheck className="w-4 h-4 text-success" />
               DONE
             </h3>
-            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">{mockProjects.length}</span>
+            <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">{completedProjects.length}</span>
           </div>
           <div className="space-y-4">
-            {mockProjects.map(project => (
+            {completedProjects.map(project => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>

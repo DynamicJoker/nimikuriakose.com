@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Command } from 'cmdk';
 import { Search, Download, Layout, User, X, Briefcase } from 'lucide-react';
 
+/**
+ * CommandPalette – Global ⌘K search overlay (Spotlight-style).
+ * Provides quick navigation across portfolio sections.
+ */
 const CommandPalette = () => {
   const [open, setOpen] = useState(false);
 
@@ -9,7 +13,7 @@ const CommandPalette = () => {
     const down = (e) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen((prev) => !prev);
       }
     };
 

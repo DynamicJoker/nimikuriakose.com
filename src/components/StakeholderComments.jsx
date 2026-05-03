@@ -1,34 +1,19 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { MessageSquare, Check, MoreHorizontal } from 'lucide-react';
+import SectionHeader from './SectionHeader';
+import testimonials from '../data/testimonials';
 
-const comments = [
-  {
-    author: 'VP_of_Engineering',
-    initials: 'VP',
-    time: '2 weeks ago',
-    text: "Nimi's ability to translate complex SOC2 compliance requirements into digestible engineering sprints saved our Q3 roadmap.",
-    status: 'Approved'
-  },
-  {
-    author: 'Lead_Security_Architect',
-    initials: 'LS',
-    time: '1 month ago',
-    text: "Finally, a PM who actually understands cloud architecture. Unblocked our GCP migration in record time.",
-    status: 'LGTM'
-  }
-];
-
+/**
+ * StakeholderComments – PR-review-style testimonial thread.
+ * Data sourced from src/data/testimonials.js.
+ */
 const StakeholderComments = () => {
   return (
     <section className="py-20 px-6 max-w-4xl mx-auto border-t border-border mt-10">
-      <div className="flex items-center gap-3 mb-10 pb-4 border-b border-border">
-        <MessageSquare className="w-6 h-6 text-primary" />
-        <h2 className="text-xl md:text-2xl font-bold text-gray-200">Stakeholder Reviews</h2>
-      </div>
+      <SectionHeader icon={MessageSquare} title="Stakeholder Reviews" />
 
       <div className="space-y-6 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px before:h-full before:w-0.5 before:bg-border">
-        {comments.map((comment, index) => (
+        {testimonials.map((comment, index) => (
           <motion.div 
             key={index}
             initial={{ opacity: 0, x: -20 }}
@@ -37,7 +22,7 @@ const StakeholderComments = () => {
             transition={{ duration: 0.5, delay: index * 0.2 }}
             className="relative flex items-start gap-4"
           >
-            {/* Avatar line dot */}
+            {/* Avatar */}
             <div className="relative z-10 w-12 h-12 bg-console border-4 border-console rounded-full flex items-center justify-center shrink-0">
               <div className="w-full h-full rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center text-primary font-bold text-sm">
                 {comment.initials}

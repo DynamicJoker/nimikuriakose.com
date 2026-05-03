@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import { motion } from 'framer-motion';
-import { AlertCircle, CheckSquare, Clock, Globe, Mail, MoreHorizontal, Shield, MapPin, Briefcase, Download } from 'lucide-react';
+import { motion } from 'motion/react';
+import { CircleAlert, SquareCheck, Clock, Globe, Mail, MoreHorizontal, Shield, MapPin, Briefcase, Download } from 'lucide-react';
+import siteConfig from '../data/siteConfig';
+
+/**
+ * Hero section — styled as a Jira-like "epic ticket".
+ * Personal details are pulled from siteConfig so they stay in sync site-wide.
+ */
+
+/** Checklist items revealed by the typing animation. */
+const dodItems = [
+  { step: 1, text: 'End-to-end management of complex cloud security initiatives.' },
+  { step: 2, text: 'Advanced proficiency in Agile, Jira, and Salesforce ecosystems.' },
+  { step: 3, text: 'Seamless coordination of compliance audits and risk remediation.' },
+  { step: 4, text: 'Aligning C-suite strategy with engineering execution.' },
+];
 
 const Hero = () => {
   const [checklist, setChecklist] = useState(0);
@@ -13,18 +27,18 @@ const Hero = () => {
         {/* Top Header / Breadcrumb */}
         <div className="flex flex-wrap items-center justify-between px-6 py-4 border-b border-border bg-console/50">
           <div className="flex items-center gap-3 text-xs md:text-sm font-mono text-gray-400">
-            <span className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"><Shield className="w-4 h-4 text-primary" /> NIMI</span>
+            <span className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"><Shield className="w-4 h-4 text-primary" /> {siteConfig.initials.split('').join('')}</span>
             <span>/</span>
             <span className="px-2 py-1 bg-border rounded-md text-gray-200 hover:bg-border-hover transition-colors cursor-pointer">SEC-PM-001</span>
           </div>
           <div className="flex items-center gap-3 mt-2 md:mt-0 text-xs font-mono">
             <div className="flex items-center gap-1.5 px-2 py-1 bg-warning/10 text-warning rounded-full border border-warning/20">
-              <AlertCircle className="w-3 h-3" />
+              <CircleAlert className="w-3 h-3" />
               <span>HIGHEST</span>
             </div>
             <div className="flex items-center gap-1.5 px-2 py-1 bg-success/10 text-success rounded-full border border-success/20">
               <div className="w-2 h-2 rounded-full bg-success"></div>
-              <span>EVALUATING OPPORTUNITIES</span>
+              <span>{siteConfig.status}</span>
             </div>
           </div>
         </div>
@@ -32,26 +46,26 @@ const Hero = () => {
         {/* Issue Body */}
         <div className="p-6 md:p-8">
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-            Lead Cloud Security Project Manager
+            {siteConfig.title}
           </h1>
           
           {/* Metadata Row */}
           <div className="flex flex-wrap gap-6 mb-8 text-sm text-gray-400 border-b border-border pb-6">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs border border-primary/30">NK</div>
-              <span>Assignee: <span className="text-gray-200 font-medium">Nimi Kuriakose</span></span>
+              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs border border-primary/30">{siteConfig.initials}</div>
+              <span>Assignee: <span className="text-gray-200 font-medium">{siteConfig.name}</span></span>
             </div>
             <div className="flex items-center gap-2">
               <Briefcase className="w-4 h-4" />
-              <span>Role: <span className="text-gray-200">Security Project Manager</span></span>
+              <span>Role: <span className="text-gray-200">{siteConfig.role}</span></span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>Velocity: <span className="text-gray-200">10+ Years Exp.</span></span>
+              <span>Velocity: <span className="text-gray-200">{siteConfig.experience}</span></span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
-              <span>Location: <span className="text-gray-200">Remote / Hybrid</span></span>
+              <span>Location: <span className="text-gray-200">{siteConfig.location}</span></span>
             </div>
           </div>
 
@@ -88,12 +102,7 @@ const Hero = () => {
           {/* Checklist Section */}
           <div className="mb-8 space-y-3">
             <h3 className="text-gray-400 font-medium mb-3">Definition of Done (DoD)</h3>
-            {[
-              { step: 1, text: 'End-to-end management of complex cloud security initiatives.' },
-              { step: 2, text: 'Advanced proficiency in Agile, Jira, and Salesforce ecosystems.' },
-              { step: 3, text: 'Seamless coordination of compliance audits and risk remediation.' },
-              { step: 4, text: 'Aligning C-suite strategy with engineering execution.' }
-            ].map((item, idx) => (
+            {dodItems.map((item, idx) => (
               <motion.div 
                 key={idx}
                 initial={{ opacity: 0, x: -10 }}
@@ -101,7 +110,7 @@ const Hero = () => {
                 className="flex items-center gap-3 text-gray-300 bg-console/50 p-3 rounded-md border border-border"
               >
                 <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${checklist >= item.step ? 'bg-primary border-primary text-console' : 'border-gray-600'}`}>
-                  {checklist >= item.step && <CheckSquare className="w-3.5 h-3.5" />}
+                  {checklist >= item.step && <SquareCheck className="w-3.5 h-3.5" />}
                 </div>
                 <span className={`transition-all ${checklist >= item.step ? 'line-through text-gray-600' : ''}`}>{item.text}</span>
               </motion.div>
@@ -130,7 +139,7 @@ const Hero = () => {
             </button>
 
             <div className="flex gap-2 ml-auto md:ml-4">
-              <a href="https://www.linkedin.com/in/nimik" target="_blank" rel="noreferrer" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0">
+              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0">
                 <Globe className="w-5 h-5" />
               </a>
               <button 

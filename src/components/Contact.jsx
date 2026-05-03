@@ -1,6 +1,8 @@
-import React from 'react';
-import { Mail, PlusCircle, ArrowUpRight } from 'lucide-react';
+import { Mail, CirclePlus, ArrowUpRight } from 'lucide-react';
 
+/**
+ * Contact section – Jira "Create Issue" styled contact form.
+ */
 const Contact = () => {
   return (
     <section id="contact" className="py-20 px-6 max-w-2xl mx-auto border-t border-border mt-10">
@@ -8,7 +10,7 @@ const Contact = () => {
         {/* Modal Header */}
         <div className="bg-console/50 px-6 py-4 border-b border-border flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-200 flex items-center gap-2">
-            <PlusCircle className="w-5 h-5 text-primary" />
+            <CirclePlus className="w-5 h-5 text-primary" />
             Create Issue
           </h2>
           <span className="text-xs font-mono text-gray-500 bg-border px-2 py-1 rounded">Project: Portfolio</span>
@@ -39,11 +41,11 @@ const Contact = () => {
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Priority</label>
               <div className="relative">
-                <select className="w-full bg-console border border-border rounded-md px-4 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer">
-                  <option>Highest (Blocker)</option>
-                  <option>High</option>
-                  <option defaultValue>Medium</option>
-                  <option>Low</option>
+                <select defaultValue="Medium" className="w-full bg-console border border-border rounded-md px-4 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer">
+                  <option value="Highest (Blocker)">Highest (Blocker)</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
                 </select>
               </div>
             </div>
