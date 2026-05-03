@@ -3,19 +3,12 @@ import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'motion/react';
 import { CircleAlert, SquareCheck, Clock, Globe, Mail, MoreHorizontal, Shield, MapPin, Briefcase, Download } from 'lucide-react';
 import siteConfig from '../data/siteConfig';
+import { dodItems, getTypingSequence, heroMetadata } from '../data/hero';
 
 /**
  * Hero section — styled as a Jira-like "epic ticket".
- * Personal details are pulled from siteConfig so they stay in sync site-wide.
+ * Personal details are pulled from siteConfig and hero-specific data from hero.js.
  */
-
-/** Checklist items revealed by the typing animation. */
-const dodItems = [
-  { step: 1, text: 'End-to-end management of complex cloud security initiatives.' },
-  { step: 2, text: 'Advanced proficiency in Agile, Jira, and Salesforce ecosystems.' },
-  { step: 3, text: 'Seamless coordination of compliance audits and risk remediation.' },
-  { step: 4, text: 'Aligning C-suite strategy with engineering execution.' },
-];
 
 const Hero = () => {
   const [checklist, setChecklist] = useState(0);
@@ -29,12 +22,12 @@ const Hero = () => {
           <div className="flex items-center gap-3 text-xs md:text-sm font-mono text-gray-400">
             <span className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"><Shield className="w-4 h-4 text-primary" /> {siteConfig.initials.split('').join('')}</span>
             <span>/</span>
-            <span className="px-2 py-1 bg-border rounded-md text-gray-200 hover:bg-border-hover transition-colors cursor-pointer">SEC-PM-001</span>
+            <span className="px-2 py-1 bg-border rounded-md text-gray-200 hover:bg-border-hover transition-colors cursor-pointer">{heroMetadata.ticketId}</span>
           </div>
           <div className="flex items-center gap-3 mt-2 md:mt-0 text-xs font-mono">
             <div className="flex items-center gap-1.5 px-2 py-1 bg-warning/10 text-warning rounded-full border border-warning/20">
               <CircleAlert className="w-3 h-3" />
-              <span>HIGHEST</span>
+              <span>{heroMetadata.priority}</span>
             </div>
             <div className="flex items-center gap-1.5 px-2 py-1 bg-success/10 text-success rounded-full border border-success/20">
               <div className="w-2 h-2 rounded-full bg-success"></div>
@@ -74,22 +67,7 @@ const Hero = () => {
             <h3 className="text-gray-400 font-medium mb-3 flex items-center gap-2">Epic Summary</h3>
             <div className="bg-console border border-border rounded-lg p-5 font-mono text-gray-300 min-h-[140px] leading-relaxed relative">
               <TypeAnimation
-                sequence={[
-                  500,
-                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\n',
-                  500,
-                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\n',
-                  500,
-                  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\nFocus areas: Risk mitigation, workflow automation, and scaling Agile methodologies across enterprise teams.',
-                  500,
-                  () => setChecklist(1),
-                  300,
-                  () => setChecklist(2),
-                  300,
-                  () => setChecklist(3),
-                  300,
-                  () => setChecklist(4)
-                ]}
+                sequence={getTypingSequence(setChecklist)}
                 wrapper="div"
                 cursor={true}
                 repeat={0}

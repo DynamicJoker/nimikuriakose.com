@@ -8,7 +8,7 @@
 const siteConfig = {
   name: 'Nimi Kuriakose',
   initials: 'NK',
-  title: 'Lead Cloud Security Project Manager',
+  title: 'Security Project Manager',
   role: 'Security Project Manager',
   location: 'Remote / Hybrid',
   experience: '10+ Years Exp.',
