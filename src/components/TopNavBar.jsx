@@ -1,10 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Layout } from 'lucide-react';
 import siteConfig from '../data/siteConfig';
 
 const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   const [activeTab, setActiveTab] = useState('Home');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const activeLink = siteConfig.navLinks.find(link => link.targetId === entry.target.id);
+            if (activeLink) {
+              setActiveTab(activeLink.label);
+            }
+          }
+        });
+      },
+      { rootMargin: '-50% 0px -50% 0px' }
+    );
+
+    siteConfig.navLinks.forEach((link) => {
+      if (link.targetId === 'top') return;
+      const el = document.getElementById(link.targetId);
+      if (el) observer.observe(el);
+    });
+
+    const handleScroll = () => {
+      if (window.scrollY < 100) setActiveTab('Home');
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <nav className="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
       {/* Left Links */}
@@ -22,8 +54,8 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
             }} 
             className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
               activeTab === link.label
-                ? 'bg-emerald-500/20 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.3)] border-emerald-500/30 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]'
-                : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:border-white/10 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]'
+                ? 'bg-primary/20 text-primary-light shadow-[0_0_15px_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_8px_rgba(129,140,248,0.8)]'
+                : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:border-white/20 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.6)] backdrop-blur-sm'
             }`}
           >
             {link.label}

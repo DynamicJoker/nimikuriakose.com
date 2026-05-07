@@ -23,13 +23,13 @@ const ExecutiveHero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-zinc-950 overflow-hidden pt-20 text-white font-sans selection:bg-emerald-500/30">
+    <section className="min-h-screen flex items-center justify-center relative bg-zinc-950 overflow-hidden pt-20 text-white font-sans selection:bg-primary/30">
       {/* Animated Dot Matrix Background */}
       <div className="absolute inset-0 pointer-events-none flex justify-center items-center opacity-20">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="dotGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.5" fill="#10b981" />
+              <circle cx="2" cy="2" r="1.5" fill="#818cf8" />
             </pattern>
           </defs>
           <motion.rect 
@@ -44,8 +44,8 @@ const ExecutiveHero = () => {
       </div>
 
       {/* Subtle Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-light/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="relative z-10 w-full max-w-5xl px-6 md:px-12 text-center md:text-left flex flex-col items-center md:items-start">
         <motion.div
@@ -55,7 +55,7 @@ const ExecutiveHero = () => {
           className="max-w-3xl"
         >
           <motion.div variants={itemVariants} className="mb-4">
-            <span className="inline-block px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+            <span className="inline-block px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(129,140,248,0.2)]">
               {siteConfig.executiveEyebrow}
             </span>
           </motion.div>

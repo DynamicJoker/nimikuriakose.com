@@ -69,8 +69,8 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                 >
                   <motion.span 
                     animate={{ 
-                      textShadow: ["0px 0px 0px rgba(16,185,129,0)", "0px 0px 15px rgba(16,185,129,0.8)", "0px 0px 15px rgba(16,185,129,0.8)", "0px 0px 0px rgba(16,185,129,0)"],
-                      color: ["rgba(156,163,175,0.7)", "rgba(16,185,129,1)", "rgba(16,185,129,1)", "rgba(156,163,175,0.7)"]
+                      textShadow: ["0px 0px 0px rgba(129,140,248,0)", "0px 0px 15px rgba(129,140,248,0.8)", "0px 0px 15px rgba(129,140,248,0.8)", "0px 0px 0px rgba(129,140,248,0)"],
+                      color: ["rgba(156,163,175,0.7)", "rgba(129,140,248,1)", "rgba(129,140,248,1)", "rgba(156,163,175,0.7)"]
                     }}
                     transition={{ repeat: Infinity, duration: 0.5, repeatDelay: 12, ease: "linear" }}
                     className="text-xs font-mono tracking-widest uppercase"
