@@ -22,8 +22,8 @@ const siteConfig = {
   executiveSubtitle: 'Security Project Management Leader.',
   executiveDescription: 'Bridging the gap between engineering execution, enterprise security, and C-suite strategy.',
   
-  // Navigation
   navLinks: [
+    { label: 'Home', targetId: 'top' },
     { label: 'Experience', targetId: 'experience' },
     { label: 'Projects', targetId: 'projects' },
     { label: 'Impact', targetId: 'impact' },

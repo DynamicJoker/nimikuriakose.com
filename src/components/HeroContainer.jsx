@@ -47,14 +47,14 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
             >
               <motion.div
                 animate={{ 
-                  rotate: [0, -1, 1, -1, 0],
-                  y: [0, -5, 0]
+                  rotate: [0, -2, 2, -2, 2, 0],
+                  x: [0, -5, 5, -5, 5, 0]
                 }}
                 transition={{ 
                   repeat: Infinity, 
-                  duration: 4, 
-                  repeatDelay: 2,
-                  ease: "easeInOut" 
+                  duration: 0.5, 
+                  repeatDelay: 12,
+                  ease: "linear" 
                 }}
                 className="cursor-grab active:cursor-grabbing relative"
               >
@@ -67,7 +67,16 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   transition={{ delay: 1, duration: 1 }}
                   className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[200px]"
                 >
-                  <span className="text-xs font-mono tracking-widest uppercase text-gray-400/70">Drag to dismiss</span>
+                  <motion.span 
+                    animate={{ 
+                      textShadow: ["0px 0px 0px rgba(16,185,129,0)", "0px 0px 15px rgba(16,185,129,0.8)", "0px 0px 15px rgba(16,185,129,0.8)", "0px 0px 0px rgba(16,185,129,0)"],
+                      color: ["rgba(156,163,175,0.7)", "rgba(16,185,129,1)", "rgba(16,185,129,1)", "rgba(156,163,175,0.7)"]
+                    }}
+                    transition={{ repeat: Infinity, duration: 0.5, repeatDelay: 12, ease: "linear" }}
+                    className="text-xs font-mono tracking-widest uppercase"
+                  >
+                    Drag to dismiss
+                  </motion.span>
                   <motion.div
                     animate={{ x: [-8, 8, -8] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
