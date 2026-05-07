@@ -38,9 +38,9 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
     };
   }, []);
   return (
-    <nav className="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
+    <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-2">
       {/* Left Links */}
-      <div className="flex items-center gap-2 pointer-events-auto backdrop-blur-md bg-console/40 px-4 py-2 rounded-full border border-border shadow-lg">
+      <div className="flex items-center gap-2 pointer-events-auto backdrop-blur-md bg-console/40 px-4 py-2 rounded-full border border-border shadow-lg max-w-[calc(100vw-150px)] md:max-w-none overflow-x-auto [&::-webkit-scrollbar]:hidden">
         {siteConfig.navLinks.map((link, idx) => (
           <button 
             key={idx} 

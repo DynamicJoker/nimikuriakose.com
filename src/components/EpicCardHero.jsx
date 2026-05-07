@@ -17,7 +17,7 @@ const EpicCardHero = () => {
     <div className="w-full max-w-4xl bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:text-base cursor-auto">
         
         {/* Top Header / Breadcrumb */}
-        <div className="flex flex-wrap items-center justify-between px-6 py-4 border-b border-border bg-console/50">
+        <div className="flex flex-wrap items-center justify-between px-4 md:px-6 py-4 border-b border-border bg-console/50 gap-2">
           <div className="flex items-center gap-3 text-xs md:text-sm font-mono text-gray-400">
             <span className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"><Shield className="w-4 h-4 text-primary" /> {siteConfig.initials.split('').join('')}</span>
             <span>/</span>
@@ -36,8 +36,8 @@ const EpicCardHero = () => {
         </div>
 
         {/* Issue Body */}
-        <div className="p-6 md:p-8">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+        <div className="p-4 md:p-8">
+          <h1 className="text-2xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
             {siteConfig.title}
           </h1>
           

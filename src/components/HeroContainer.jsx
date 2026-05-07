@@ -30,15 +30,12 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
           {isJiraMaximized && (
             <motion.div
               layoutId="jira-window"
-              drag
-              dragConstraints={{ left: -300, right: 300, top: -200, bottom: 200 }}
+              drag="x"
+              dragConstraints={{ left: -300, right: 300 }}
               dragElastic={0.4}
               onDragEnd={(e, info) => {
-                const threshold = 150;
-                if (
-                  Math.abs(info.offset.x) > threshold ||
-                  Math.abs(info.offset.y) > threshold
-                ) {
+                const threshold = 100;
+                if (Math.abs(info.offset.x) > threshold) {
                   setIsJiraMaximized(false);
                 }
               }}

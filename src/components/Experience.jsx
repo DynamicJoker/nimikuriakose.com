@@ -8,7 +8,7 @@ import experience from '../data/experience';
  */
 const Experience = () => {
   return (
-    <section className="py-20 px-6 max-w-4xl mx-auto" id="experience">
+    <section className="py-20 px-4 md:px-6 max-w-4xl mx-auto" id="experience">
       <SectionHeader icon={FileCode} title="Release Notes / Changelog" />
       
       <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">

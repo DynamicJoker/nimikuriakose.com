@@ -64,8 +64,8 @@ const ProjectCard = ({ project }) => {
  */
 const Projects = () => {
   return (
-    <section className="py-20 px-6 max-w-[1400px] mx-auto">
-      <div className="flex items-center justify-between mb-8 pb-4 border-b border-border">
+    <section className="py-20 px-4 md:px-6 max-w-[1400px] mx-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-border gap-4">
         <div className="flex items-center gap-3">
           <Layout className="w-6 h-6 text-primary" />
           <h2 className="text-xl md:text-2xl font-bold text-gray-200">Active Sprint Board</h2>
