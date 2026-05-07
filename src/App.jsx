@@ -1,4 +1,4 @@
-import Hero from './components/Hero';
+import HeroContainer from './components/HeroContainer';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import ImpactDashboard from './components/ImpactDashboard';
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="bg-console min-h-screen text-gray-300 font-sans selection:bg-primary/30">
       {/* ── Hero / Epic ticket ─────────────────────────────── */}
-      <Hero />
+      <HeroContainer />
 
       {/* ── Career timeline ────────────────────────────────── */}
       <div id="experience">

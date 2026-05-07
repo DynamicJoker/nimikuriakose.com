@@ -10,7 +10,7 @@ import { dodItems, getTypingSequence, heroMetadata } from '../data/hero';
  * Personal details are pulled from siteConfig and hero-specific data from hero.js.
  */
 
-const Hero = () => {
+const EpicCardHero = () => {
   const [checklist, setChecklist] = useState(0);
 
   return (
@@ -139,4 +139,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default EpicCardHero;
