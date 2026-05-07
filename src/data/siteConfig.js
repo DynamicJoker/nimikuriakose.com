@@ -25,7 +25,11 @@ const siteConfig = {
   // Navigation
   navLinks: [
     { label: 'Experience', targetId: 'experience' },
+    { label: 'Projects', targetId: 'projects' },
+    { label: 'Impact', targetId: 'impact' },
     { label: 'Methodology', targetId: 'methodology-wiki' },
+    { label: 'Testimonials', targetId: 'testimonials' },
+    { label: 'Skills', targetId: 'skills' },
     { label: 'Contact', targetId: 'contact' },
   ],
 };

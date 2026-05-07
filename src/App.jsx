@@ -26,10 +26,14 @@ function App() {
       </div>
 
       {/* ── Sprint board (projects) ────────────────────────── */}
-      <Projects />
+      <div id="projects">
+        <Projects />
+      </div>
 
       {/* ── KPI metrics ────────────────────────────────────── */}
-      <ImpactDashboard />
+      <div id="impact">
+        <ImpactDashboard />
+      </div>
 
       {/* ── PM methodology / SOP ───────────────────────────── */}
       <div id="methodology-wiki">
@@ -37,10 +41,14 @@ function App() {
       </div>
 
       {/* ── Testimonials ───────────────────────────────────── */}
-      <StakeholderComments />
+      <div id="testimonials">
+        <StakeholderComments />
+      </div>
 
       {/* ── Skills matrix ──────────────────────────────────── */}
-      <Skills />
+      <div id="skills">
+        <Skills />
+      </div>
 
       {/* ── Contact form ───────────────────────────────────── */}
       <div id="contact">

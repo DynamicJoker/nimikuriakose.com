@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { MoveHorizontal } from 'lucide-react';
 import EpicCardHero from './EpicCardHero';
 import ExecutiveHero from './ExecutiveHero';
 
@@ -9,6 +10,19 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
       <div className="absolute inset-0 z-0 pointer-events-auto">
         <ExecutiveHero />
       </div>
+
+      {/* Z-10: Original aesthetic background that hides executive view */}
+      <AnimatePresence>
+        {isJiraMaximized && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0 z-10 bg-console pointer-events-none" 
+          />
+        )}
+      </AnimatePresence>
 
       {/* Z-40: Draggable Jira Card */}
       <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center p-6 pt-20">
@@ -42,9 +56,26 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   repeatDelay: 2,
                   ease: "easeInOut" 
                 }}
-                className="cursor-grab active:cursor-grabbing"
+                className="cursor-grab active:cursor-grabbing relative"
               >
                 <EpicCardHero />
+
+                {/* Drag Hint */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 1 }}
+                  className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[200px]"
+                >
+                  <span className="text-xs font-mono tracking-widest uppercase text-gray-400/70">Drag to dismiss</span>
+                  <motion.div
+                    animate={{ x: [-8, 8, -8] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    className="text-primary/50"
+                  >
+                    <MoveHorizontal className="w-5 h-5" />
+                  </motion.div>
+                </motion.div>
               </motion.div>
             </motion.div>
           )}
