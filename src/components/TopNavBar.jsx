@@ -1,14 +1,21 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Layout } from 'lucide-react';
+import siteConfig from '../data/siteConfig';
 
 const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   return (
     <nav className="fixed top-0 w-full z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
       {/* Left Links */}
       <div className="flex items-center gap-6 pointer-events-auto backdrop-blur-md bg-console/40 px-6 py-2.5 rounded-full border border-border shadow-lg">
-        <button onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Experience</button>
-        <button onClick={() => document.getElementById('methodology-wiki')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Methodology</button>
-        <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Contact</button>
+        {siteConfig.navLinks.map((link, idx) => (
+          <button 
+            key={idx} 
+            onClick={() => document.getElementById(link.targetId)?.scrollIntoView({ behavior: 'smooth' })} 
+            className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+          >
+            {link.label}
+          </button>
+        ))}
       </div>
 
       {/* Right Minimized Icon Slot */}

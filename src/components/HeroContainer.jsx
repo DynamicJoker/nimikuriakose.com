@@ -28,19 +28,24 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   setIsJiraMaximized(false);
                 }
               }}
-              animate={{ 
-                rotate: [0, -1, 1, -1, 0],
-                y: [0, -5, 0]
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 4, 
-                repeatDelay: 2,
-                ease: "easeInOut" 
-              }}
-              className="pointer-events-auto cursor-grab active:cursor-grabbing w-full max-w-4xl"
+              transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
+              className="pointer-events-auto w-full max-w-4xl"
             >
-              <EpicCardHero />
+              <motion.div
+                animate={{ 
+                  rotate: [0, -1, 1, -1, 0],
+                  y: [0, -5, 0]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 4, 
+                  repeatDelay: 2,
+                  ease: "easeInOut" 
+                }}
+                className="cursor-grab active:cursor-grabbing"
+              >
+                <EpicCardHero />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

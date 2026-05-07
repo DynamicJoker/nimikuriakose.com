@@ -16,6 +16,18 @@ const siteConfig = {
   linkedinUrl: 'https://www.linkedin.com/in/nimik',
   resumeUrl: null, // Set to a URL when a downloadable resume is available
   version: '2.0.1',
+  
+  // Executive View Data
+  executiveEyebrow: 'Executive Briefing',
+  executiveSubtitle: 'Security Project Management Leader.',
+  executiveDescription: 'Bridging the gap between engineering execution, enterprise security, and C-suite strategy.',
+  
+  // Navigation
+  navLinks: [
+    { label: 'Experience', targetId: 'experience' },
+    { label: 'Methodology', targetId: 'methodology-wiki' },
+    { label: 'Contact', targetId: 'contact' },
+  ],
 };
 
 export default siteConfig;

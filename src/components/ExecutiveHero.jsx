@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
+import siteConfig from '../data/siteConfig';
 
 const ExecutiveHero = () => {
   const containerVariants = {
@@ -55,20 +56,20 @@ const ExecutiveHero = () => {
         >
           <motion.div variants={itemVariants} className="mb-4">
             <span className="inline-block px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              Executive Briefing
+              {siteConfig.executiveEyebrow}
             </span>
           </motion.div>
           
           <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-6">
-            Nimi Kuriakose
+            {siteConfig.name}
           </motion.h1>
           
           <motion.h2 variants={itemVariants} className="text-2xl md:text-4xl font-semibold text-zinc-300 mb-6 tracking-tight">
-            Security Project Management Leader.
+            {siteConfig.executiveSubtitle}
           </motion.h2>
           
           <motion.p variants={itemVariants} className="text-lg md:text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-            Bridging the gap between engineering execution, enterprise security, and C-suite strategy.
+            {siteConfig.executiveDescription}
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
