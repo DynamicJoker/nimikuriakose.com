@@ -14,8 +14,7 @@ const EpicCardHero = () => {
   const [checklist, setChecklist] = useState(0);
 
   return (
-    <section className="min-h-screen flex items-center justify-center p-6 bg-console relative pt-20">
-      <div className="w-full max-w-4xl bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:text-base">
+    <div className="w-full max-w-4xl bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:text-base cursor-auto">
         
         {/* Top Header / Breadcrumb */}
         <div className="flex flex-wrap items-center justify-between px-6 py-4 border-b border-border bg-console/50">
@@ -134,8 +133,7 @@ const EpicCardHero = () => {
           </motion.div>
 
         </div>
-      </div>
-    </section>
+    </div>
   );
 };
 
