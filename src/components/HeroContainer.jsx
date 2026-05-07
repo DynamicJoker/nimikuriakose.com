@@ -5,9 +5,9 @@ import ExecutiveHero from './ExecutiveHero';
 
 const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-zinc-950">
+    <div className="relative w-full min-h-screen bg-zinc-950">
       {/* Z-0: Executive Background */}
-      <div className="absolute inset-0 z-0 pointer-events-auto">
+      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <ExecutiveHero />
       </div>
 
@@ -25,7 +25,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
       </AnimatePresence>
 
       {/* Z-40: Draggable Jira Card */}
-      <div className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center p-6 pt-20">
+      <div className="relative z-40 pointer-events-none flex flex-col items-center min-h-screen w-full p-4 md:p-6 pt-24 pb-24">
         <AnimatePresence>
           {isJiraMaximized && (
             <motion.div
@@ -40,7 +40,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                 }
               }}
               transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
-              className="pointer-events-auto w-full max-w-4xl"
+              className="pointer-events-auto w-full max-w-4xl my-auto"
             >
               <motion.div
                 animate={{ 
