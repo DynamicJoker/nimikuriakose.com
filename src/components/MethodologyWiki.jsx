@@ -36,7 +36,7 @@ const MethodologyWiki = () => {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="relative"
               >
-                <div className="absolute -left-[49px] md:-left-[50px] top-0 w-8 h-8 bg-console border-2 border-border rounded-full flex items-center justify-center text-gray-400 z-10 shadow-sm">
+                <div className="absolute -left-[3rem] top-0 w-8 h-8 bg-console border-2 border-border rounded-full flex items-center justify-center text-gray-400 z-10 shadow-sm">
                   <Icon className="w-4 h-4 text-primary" />
                 </div>
                 <h3 className="text-base md:text-lg font-bold text-gray-200 mb-2">{phase.title}</h3>

@@ -31,21 +31,22 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
             <motion.div
               layoutId="jira-window"
               drag="x"
-              dragConstraints={{ left: -300, right: 300 }}
+              dragConstraints={{ left: typeof window !== 'undefined' ? -window.innerWidth / 2 : -300, right: typeof window !== 'undefined' ? window.innerWidth / 2 : 300 }}
               dragElastic={0.4}
               onDragEnd={(e, info) => {
-                const threshold = 100;
+                const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.25 : 100;
                 if (Math.abs(info.offset.x) > threshold) {
                   setIsJiraMaximized(false);
                 }
               }}
               transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
               className="pointer-events-auto w-full max-w-4xl my-auto"
+              style={{ perspective: 1000 }}
             >
               <motion.div
                 animate={{ 
-                  rotate: [0, -2, 2, -2, 2, 0],
-                  x: [0, -5, 5, -5, 5, 0]
+                  rotate: [0, -1, 1, -1, 1, 0],
+                  x: [0, '-0.2rem', '0.2rem', '-0.2rem', '0.2rem', 0]
                 }}
                 transition={{ 
                   repeat: Infinity, 
@@ -62,11 +63,11 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1, duration: 1 }}
-                  className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[200px]"
+                  className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[12rem]"
                 >
                   <motion.span 
                     animate={{ 
-                      textShadow: ["0px 0px 0px rgba(129,140,248,0)", "0px 0px 15px rgba(129,140,248,0.8)", "0px 0px 15px rgba(129,140,248,0.8)", "0px 0px 0px rgba(129,140,248,0)"],
+                      textShadow: ["0 0 0 rgba(129,140,248,0)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 0 rgba(129,140,248,0)"],
                       color: ["rgba(156,163,175,0.7)", "rgba(129,140,248,1)", "rgba(129,140,248,1)", "rgba(156,163,175,0.7)"]
                     }}
                     transition={{ repeat: Infinity, duration: 0.5, repeatDelay: 12, ease: "linear" }}
@@ -75,7 +76,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                     Drag to dismiss
                   </motion.span>
                   <motion.div
-                    animate={{ x: [-8, 8, -8] }}
+                    animate={{ x: ['-0.5rem', '0.5rem', '-0.5rem'] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                     className="text-primary/50"
                   >

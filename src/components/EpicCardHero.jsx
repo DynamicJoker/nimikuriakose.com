@@ -64,7 +64,7 @@ const EpicCardHero = () => {
           {/* Description Section */}
           <div className="mb-8">
             <h3 className="text-gray-400 font-medium mb-3 flex items-center gap-2">Epic Summary</h3>
-            <div className="bg-console border border-border rounded-lg p-5 font-mono text-gray-300 min-h-[140px] leading-relaxed relative">
+            <div className="bg-console border border-border rounded-lg p-5 font-mono text-gray-300 min-h-[10rem] leading-relaxed relative">
               <TypeAnimation
                 sequence={getTypingSequence(setChecklist)}
                 wrapper="div"

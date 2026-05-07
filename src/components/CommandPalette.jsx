@@ -47,7 +47,7 @@ const CommandPalette = () => {
           </button>
         </div>
 
-        <Command.List className="max-h-[300px] overflow-y-auto p-2">
+        <Command.List className="max-h-80 overflow-y-auto p-2">
           <Command.Empty className="py-6 text-center text-sm text-gray-500">
             No results found.
           </Command.Empty>

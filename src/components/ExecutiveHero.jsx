@@ -44,8 +44,8 @@ const ExecutiveHero = () => {
       </div>
 
       {/* Subtle Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-light/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-[min(40vw,24rem)] h-[min(40vw,24rem)] bg-primary/10 rounded-full blur-[min(10vw,8rem)] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[min(40vw,24rem)] h-[min(40vw,24rem)] bg-primary-light/10 rounded-full blur-[min(10vw,8rem)] pointer-events-none"></div>
 
       <div className="relative z-10 w-full max-w-5xl px-6 md:px-12 text-center md:text-left flex flex-col items-center md:items-start">
         <motion.div
@@ -55,7 +55,7 @@ const ExecutiveHero = () => {
           className="max-w-3xl"
         >
           <motion.div variants={itemVariants} className="mb-4">
-            <span className="inline-block px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_15px_rgba(129,140,248,0.2)]">
+            <span className="inline-block px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-xs md:text-sm font-semibold tracking-widest uppercase shadow-[0_0_1rem_rgba(129,140,248,0.2)]">
               {siteConfig.executiveEyebrow}
             </span>
           </motion.div>
@@ -75,7 +75,7 @@ const ExecutiveHero = () => {
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
             <button 
               onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-white text-zinc-950 hover:bg-zinc-200 rounded-full font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-white text-zinc-950 hover:bg-zinc-200 rounded-full font-bold transition-all shadow-[0_0_1.5rem_rgba(255,255,255,0.1)] flex items-center justify-center gap-2"
             >
               View Impact & ROI
               <ChevronDown className="w-5 h-5" />

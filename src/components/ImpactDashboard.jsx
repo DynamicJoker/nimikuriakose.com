@@ -7,7 +7,7 @@ const iconMap = { DollarSign, TrendingUp, ShieldCheck, Activity };
 
 const ImpactDashboard = () => {
   return (
-    <section className="py-20 px-6 max-w-[1400px] mx-auto border-t border-border mt-10">
+    <section className="py-20 px-6 max-w-7xl mx-auto border-t border-border mt-10">
       <SectionHeader icon={ChartBar} title="Impact Dashboard" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => {

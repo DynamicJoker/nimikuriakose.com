@@ -64,7 +64,7 @@ const ProjectCard = ({ project }) => {
  */
 const Projects = () => {
   return (
-    <section className="py-20 px-4 md:px-6 max-w-[1400px] mx-auto">
+    <section className="py-20 px-4 md:px-6 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-border gap-4">
         <div className="flex items-center gap-3">
           <Layout className="w-6 h-6 text-primary" />
@@ -82,7 +82,7 @@ const Projects = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
         {/* Backlog Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[400px]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <CircleDashed className="w-4 h-4 text-gray-500" />
@@ -101,7 +101,7 @@ const Projects = () => {
         </div>
 
         {/* In Progress Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[400px]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
@@ -124,7 +124,7 @@ const Projects = () => {
         </div>
 
         {/* Done Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[400px]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <CircleCheck className="w-4 h-4 text-success" />

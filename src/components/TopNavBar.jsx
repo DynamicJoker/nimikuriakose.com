@@ -40,7 +40,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   return (
     <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-2">
       {/* Left Links */}
-      <div className="flex items-center gap-2 pointer-events-auto backdrop-blur-md bg-console/40 px-4 py-2 rounded-full border border-border shadow-lg max-w-[calc(100vw-150px)] md:max-w-none overflow-x-auto [&::-webkit-scrollbar]:hidden">
+      <div className="flex items-center gap-2 pointer-events-auto backdrop-blur-md bg-console/40 px-4 py-2 rounded-full border border-border shadow-lg max-w-[75vw] md:max-w-none overflow-x-auto [&::-webkit-scrollbar]:hidden">
         {siteConfig.navLinks.map((link, idx) => (
           <button 
             key={idx} 
@@ -54,8 +54,8 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
             }} 
             className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
               activeTab === link.label
-                ? 'bg-primary/20 text-primary-light shadow-[0_0_15px_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_8px_rgba(129,140,248,0.8)]'
-                : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:border-white/20 hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.6)] backdrop-blur-sm'
+                ? 'bg-primary/20 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_0.5rem_rgba(129,140,248,0.8)]'
+                : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:border-white/20 hover:drop-shadow-[0_0_0.3rem_rgba(255,255,255,0.6)] backdrop-blur-sm'
             }`}
           >
             {link.label}
@@ -64,7 +64,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       </div>
 
       {/* Right Minimized Icon Slot */}
-      <div className="pointer-events-auto h-12 flex items-center justify-end min-w-[120px]">
+      <div className="pointer-events-auto h-12 flex items-center justify-end min-w-[7.5rem]">
         <AnimatePresence>
           {!isJiraMaximized && (
             <motion.button
