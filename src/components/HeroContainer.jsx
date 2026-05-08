@@ -14,12 +14,12 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
       {/* Z-10: Original aesthetic background that hides executive view */}
       <AnimatePresence>
         {isJiraMaximized && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="absolute inset-0 z-10 bg-console pointer-events-none" 
+            className="absolute inset-0 z-10 bg-console pointer-events-none"
           />
         )}
       </AnimatePresence>
@@ -31,17 +31,21 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
             <motion.div
               layoutId="jira-window"
               drag={true}
-              dragConstraints={{ 
-                left: typeof window !== 'undefined' ? -window.innerWidth / 1.5 : -500, 
+              dragConstraints={{
+                left: typeof window !== 'undefined' ? -window.innerWidth / 1.5 : -500,
                 right: typeof window !== 'undefined' ? window.innerWidth / 1.5 : 500,
                 top: typeof window !== 'undefined' ? -window.innerHeight / 1.5 : -500,
                 bottom: typeof window !== 'undefined' ? window.innerHeight / 1.5 : 500
               }}
               dragElastic={0.8}
+              dragSnapToOrigin={true}
               onDragEnd={(e, info) => {
                 const thresholdX = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 100;
                 const thresholdY = typeof window !== 'undefined' ? window.innerHeight * 0.2 : 100;
-                if (Math.abs(info.offset.x) > thresholdX || Math.abs(info.offset.y) > thresholdY) {
+                const isFar = Math.abs(info.offset.x) > thresholdX || Math.abs(info.offset.y) > thresholdY;
+                const isFast = Math.abs(info.velocity.x) > 500 || Math.abs(info.velocity.y) > 500;
+                
+                if (isFar || isFast) {
                   setIsJiraMaximized(false);
                 }
               }}
@@ -50,29 +54,29 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
               style={{ perspective: 1000 }}
             >
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: [0, -1, 1, -1, 1, 0],
                   x: [0, '-0.2rem', '0.2rem', '-0.2rem', '0.2rem', 0]
                 }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 0.5, 
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.5,
                   repeatDelay: 12,
-                  ease: "linear" 
+                  ease: "linear"
                 }}
                 className="cursor-grab active:cursor-grabbing relative"
               >
                 <EpicCardHero />
 
                 {/* Drag Hint */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1, duration: 1 }}
                   className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[12rem]"
                 >
-                  <motion.span 
-                    animate={{ 
+                  <motion.span
+                    animate={{
                       textShadow: ["0 0 0 rgba(129,140,248,0)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 0 rgba(129,140,248,0)"],
                       color: ["rgba(156,163,175,0.7)", "rgba(129,140,248,1)", "rgba(129,140,248,1)", "rgba(156,163,175,0.7)"]
                     }}
