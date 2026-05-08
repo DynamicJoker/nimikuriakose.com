@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Layout, Menu, X } from 'lucide-react';
+import { Layout, Menu, X, Grid } from 'lucide-react';
 import siteConfig from '../data/siteConfig';
 
 const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
@@ -53,7 +53,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
     <>
       <nav className="fixed top-0 w-full z-[100] px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-4">
         <div className="flex items-center gap-3 pointer-events-auto">
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle (Always Hamburger on Mobile) */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
@@ -61,22 +61,49 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          {/* Desktop Links Pill */}
-          <div className="hidden lg:flex items-center gap-2 backdrop-blur-md bg-console/40 px-4 py-2 rounded-full border border-border shadow-lg">
-            {siteConfig.navLinks.map((link, idx) => (
-              <button 
-                key={idx} 
-                onClick={() => handleNavClick(link)} 
-                className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
-                  activeTab === link.label
-                    ? 'bg-primary/20 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_0.5rem_rgba(129,140,248,0.8)]'
-                    : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:border-white/20 hover:drop-shadow-[0_0_0.3rem_rgba(255,255,255,0.6)] backdrop-blur-sm'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
+          {/* Desktop Adaptive Links Pill */}
+          <motion.div 
+            layout
+            className="hidden lg:flex items-center backdrop-blur-md bg-console/40 p-1.5 rounded-full border border-border shadow-lg"
+          >
+            <AnimatePresence mode="wait">
+              {isJiraMaximized ? (
+                <motion.button
+                  key="launcher"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors rounded-full"
+                  title="Open Navigation"
+                >
+                  <Grid className="w-6 h-6" />
+                </motion.button>
+              ) : (
+                <motion.div
+                  key="full-nav"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="flex items-center gap-1 px-1"
+                >
+                  {siteConfig.navLinks.map((link, idx) => (
+                    <button 
+                      key={idx} 
+                      onClick={() => handleNavClick(link)} 
+                      className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
+                        activeTab === link.label
+                          ? 'bg-primary/20 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_0.5rem_rgba(129,140,248,0.8)]'
+                          : 'text-gray-400 border-transparent hover:text-white hover:bg-white/10 hover:border-white/20 hover:drop-shadow-[0_0_0.3rem_rgba(255,255,255,0.6)] backdrop-blur-sm'
+                      }`}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
 
         {/* Right Minimized Icon Slot */}
@@ -110,7 +137,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[90] lg:hidden bg-console/95 backdrop-blur-xl pt-24 px-6 overflow-y-auto"
+            className="fixed inset-0 z-[90] bg-console/95 backdrop-blur-xl pt-24 px-6 overflow-y-auto"
           >
             <div className="flex flex-col gap-2 max-w-sm mx-auto">
               {siteConfig.navLinks.map((link, idx) => (
