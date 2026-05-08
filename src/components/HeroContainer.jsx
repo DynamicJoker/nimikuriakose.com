@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { MoveHorizontal } from 'lucide-react';
+import { Move } from 'lucide-react';
 import EpicCardHero from './EpicCardHero';
 import ExecutiveHero from './ExecutiveHero';
 
@@ -30,17 +30,23 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
           {isJiraMaximized && (
             <motion.div
               layoutId="jira-window"
-              drag="x"
-              dragConstraints={{ left: typeof window !== 'undefined' ? -window.innerWidth / 2 : -300, right: typeof window !== 'undefined' ? window.innerWidth / 2 : 300 }}
-              dragElastic={0.4}
+              drag={true}
+              dragConstraints={{ 
+                left: typeof window !== 'undefined' ? -window.innerWidth / 1.5 : -500, 
+                right: typeof window !== 'undefined' ? window.innerWidth / 1.5 : 500,
+                top: typeof window !== 'undefined' ? -window.innerHeight / 1.5 : -500,
+                bottom: typeof window !== 'undefined' ? window.innerHeight / 1.5 : 500
+              }}
+              dragElastic={0.8}
               onDragEnd={(e, info) => {
-                const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.25 : 100;
-                if (Math.abs(info.offset.x) > threshold) {
+                const thresholdX = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 100;
+                const thresholdY = typeof window !== 'undefined' ? window.innerHeight * 0.2 : 100;
+                if (Math.abs(info.offset.x) > thresholdX || Math.abs(info.offset.y) > thresholdY) {
                   setIsJiraMaximized(false);
                 }
               }}
               transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
-              className="pointer-events-auto w-full max-w-4xl my-auto"
+              className="pointer-events-auto w-full max-w-4xl my-auto touch-pan-y"
               style={{ perspective: 1000 }}
             >
               <motion.div
@@ -76,11 +82,11 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                     Drag to dismiss
                   </motion.span>
                   <motion.div
-                    animate={{ x: ['-0.5rem', '0.5rem', '-0.5rem'] }}
+                    animate={{ y: ['-0.3rem', '0.3rem', '-0.3rem'] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                    className="text-primary/50"
+                    className="text-primary/50 mt-1"
                   >
-                    <MoveHorizontal className="w-5 h-5" />
+                    <Move className="w-5 h-5" />
                   </motion.div>
                 </motion.div>
               </motion.div>
