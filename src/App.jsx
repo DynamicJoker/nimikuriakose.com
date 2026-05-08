@@ -15,7 +15,7 @@ function App() {
   const [isJiraMaximized, setIsJiraMaximized] = useState(true);
 
   return (
-    <div className="bg-console min-h-screen text-gray-300 font-sans selection:bg-primary/30 relative">
+    <div className="bg-console min-h-screen text-gray-300 font-sans selection:bg-primary/30 relative overflow-x-hidden">
       <TopNavBar isJiraMaximized={isJiraMaximized} setIsJiraMaximized={setIsJiraMaximized} />
       {/* ── Hero / Epic ticket ─────────────────────────────── */}
       <HeroContainer isJiraMaximized={isJiraMaximized} setIsJiraMaximized={setIsJiraMaximized} />

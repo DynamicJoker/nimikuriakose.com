@@ -5,7 +5,7 @@ import ExecutiveHero from './ExecutiveHero';
 
 const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
   return (
-    <div className="relative w-full min-h-screen bg-zinc-950">
+    <div className="relative w-full min-h-screen bg-zinc-950 overflow-x-hidden">
       {/* Z-0: Executive Background */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <ExecutiveHero />
