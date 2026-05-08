@@ -53,10 +53,10 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
     <>
       <nav className="fixed top-0 w-full z-[100] px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-4">
         <div className="flex items-center gap-3 pointer-events-auto">
-          {/* Mobile Menu Toggle (Always Hamburger on Mobile) */}
+          {/* Mobile Menu Toggle (Always Hamburger on Mobile/Tablet) */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
+            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
           >
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -64,7 +64,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
           {/* Desktop Adaptive Links Pill */}
           <motion.div 
             layout
-            className="hidden lg:flex items-center backdrop-blur-md bg-console/40 p-1.5 rounded-full border border-border shadow-lg"
+            className="hidden xl:flex items-center backdrop-blur-md bg-console/40 p-1.5 rounded-full border border-border shadow-lg"
           >
             <AnimatePresence mode="wait">
               {isJiraMaximized ? (
@@ -165,7 +165,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
               
               <div className="mt-8 pt-8 border-t border-border/50">
                 <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4 text-center">System Information</p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
                     <p className="text-[10px] text-gray-500 mb-1">Status</p>
                     <p className="text-xs font-bold text-success">Deployed</p>
