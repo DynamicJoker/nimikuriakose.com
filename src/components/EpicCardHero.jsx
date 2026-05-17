@@ -17,31 +17,36 @@ const EpicCardHero = ({ onMinimize }) => {
     <div className="w-full max-w-4xl bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:text-base cursor-auto">
         
         {/* Top Header / Breadcrumb */}
-        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 border-b border-border bg-console/50 md:px-6">
-          <div className="flex min-w-0 items-center gap-3 text-xs md:text-sm font-mono text-gray-400">
-            <span className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"><Shield className="w-4 h-4 text-primary" /> {siteConfig.initials.split('').join('')}</span>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-3 px-4 py-3 border-b border-border bg-console/50 sm:items-center md:px-6 md:py-4">
+          <div className="flex min-w-0 items-center gap-3 overflow-hidden text-xs font-mono text-gray-400 md:text-sm">
+            <span className="flex min-w-0 items-center gap-1 hover:text-primary transition-colors cursor-pointer">
+              <Shield className="w-4 h-4 shrink-0 text-primary" />
+              <span className="truncate">{siteConfig.initials.split('').join('')}</span>
+            </span>
             <span>/</span>
-            <span className="px-2 py-1 bg-border rounded-md text-gray-200 hover:bg-border-hover transition-colors cursor-pointer">{heroMetadata.ticketId}</span>
+            <span className="max-w-full truncate rounded-md bg-border px-2 py-1 text-gray-200 transition-colors hover:bg-border-hover cursor-pointer">{heroMetadata.ticketId}</span>
           </div>
-          <div className="ml-auto flex flex-wrap items-center justify-end gap-2 text-xs font-mono">
-            <div className="flex items-center gap-1.5 rounded-full border border-warning/20 bg-warning/10 px-2 py-1 text-warning">
-              <CircleAlert className="w-3 h-3" />
-              <span>{heroMetadata.priority}</span>
+
+          <button
+            type="button"
+            aria-label="Minimize hero card"
+            title="Minimize hero card"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={onMinimize}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-console text-gray-400 transition-colors hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/60"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          <div className="col-span-2 flex min-w-0 flex-wrap items-center gap-2 text-[10px] font-mono sm:justify-end sm:text-xs">
+            <div className="flex max-w-full shrink-0 items-center gap-1.5 rounded-full border border-warning/20 bg-warning/10 px-2 py-1 text-warning">
+              <CircleAlert className="h-3 w-3 shrink-0" />
+              <span className="font-bold">{heroMetadata.priority}</span>
             </div>
-            <div className="flex items-center gap-1.5 rounded-full border border-success/20 bg-success/10 px-2 py-1 text-success">
-              <div className="w-2 h-2 rounded-full bg-success"></div>
-              <span>{siteConfig.status}</span>
+            <div className="flex min-w-0 max-w-full items-center gap-1.5 rounded-full border border-success/20 bg-success/10 px-2 py-1 text-success">
+              <div className="h-2 w-2 shrink-0 rounded-full bg-success"></div>
+              <span className="min-w-0 truncate font-bold">{siteConfig.status}</span>
             </div>
-            <button
-              type="button"
-              aria-label="Minimize hero card"
-              title="Minimize hero card"
-              onPointerDown={(event) => event.stopPropagation()}
-              onClick={onMinimize}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-console text-gray-400 transition-colors hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/60"
-            >
-              <X className="h-4 w-4" />
-            </button>
           </div>
         </div>
 
