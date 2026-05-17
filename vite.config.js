@@ -14,6 +14,10 @@ import {
 const jsonLdScript = () =>
   `<script type="application/ld+json">${JSON.stringify(personJsonLd()).replace(/</g, '\\u003c')}</script>`
 
+const jsEnabledFallbackGuard = () => `
+    <script>document.documentElement.classList.add('js-enabled')</script>
+    <style>html.js-enabled body{background:#09090b}html.js-enabled #root>.crawler-portfolio{display:none!important}</style>`
+
 const aiReadablePortfolio = () => ({
   name: 'ai-readable-portfolio',
   transformIndexHtml(html) {
@@ -21,7 +25,7 @@ const aiReadablePortfolio = () => ({
       .replace('<div id="root"></div>', `<div id="root">${staticPortfolioHtml()}</div>`)
       .replace(
         '</head>',
-        `    <link rel="canonical" href="${siteConfig.siteUrl}" />\n    ${jsonLdScript()}\n  </head>`
+        `    <link rel="canonical" href="${siteConfig.siteUrl}" />${jsEnabledFallbackGuard()}\n    ${jsonLdScript()}\n  </head>`
       )
   },
   generateBundle() {
