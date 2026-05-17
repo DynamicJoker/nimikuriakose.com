@@ -109,11 +109,11 @@ This site is a public professional portfolio for ${siteConfig.name}, ${siteConfi
 ## Notes
 
 - Public content may be used for search indexing and user-requested retrieval.
-- Automated model-training crawlers are opted out where supported by robots.txt.
+- OpenAI crawlers are allowed to access public portfolio content where supported by robots.txt.
 `;
 
 export const robotsTxt = () => `User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: OAI-SearchBot
 Allow: /
