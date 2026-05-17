@@ -108,22 +108,36 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
 
         {/* Right Minimized Icon Slot */}
         <div className="pointer-events-auto h-12 flex items-center justify-end min-w-[7.5rem]">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {!isJiraMaximized && (
-              <motion.button
-                layoutId="jira-window"
-                onClick={() => {
-                  setIsJiraMaximized(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center gap-2 px-4 py-2 bg-panel border border-border rounded-full shadow-2xl hover:bg-console transition-colors group cursor-pointer"
+              <motion.div
+                key="minimized-epic"
+                className="relative h-10 min-w-[7.5rem]"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
               >
-                <Layout className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-bold text-white">View Epic</span>
-              </motion.button>
+                <motion.div
+                  layoutId="jira-window"
+                  className="absolute inset-0 rounded-full border border-border bg-panel shadow-2xl pointer-events-none"
+                  transition={{ layout: { type: 'spring', stiffness: 350, damping: 30 } }}
+                />
+                <motion.button
+                  type="button"
+                  onClick={() => {
+                    setIsJiraMaximized(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="relative z-10 flex h-10 w-full items-center justify-center gap-2 rounded-full border border-transparent px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-console focus:outline-none focus:ring-2 focus:ring-primary/60 group cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ delay: 0.18, duration: 0.16, ease: 'easeOut' }}
+                >
+                  <Layout className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+                  <span>View Epic</span>
+                </motion.button>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>

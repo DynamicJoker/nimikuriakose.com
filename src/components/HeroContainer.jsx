@@ -83,43 +83,50 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
               style={{ perspective: 1000 }}
             >
               <motion.div
-                animate={{
-                  rotate: [0, -1, 1, -1, 1, 0],
-                  x: [0, '-0.2rem', '0.2rem', '-0.2rem', '0.2rem', 0]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 0.5,
-                  repeatDelay: 12,
-                  ease: "linear"
-                }}
-                className="relative md:cursor-grab md:active:cursor-grabbing"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.14, ease: 'easeOut' }}
               >
-                <EpicCardHero onMinimize={() => setIsJiraMaximized(false)} />
-
-                {/* Drag Hint */}
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1, duration: 1 }}
-                  className="absolute -bottom-16 left-1/2 hidden w-full max-w-[12rem] -translate-x-1/2 flex-col items-center gap-2 text-gray-500 pointer-events-none md:flex"
+                  animate={{
+                    rotate: [0, -1, 1, -1, 1, 0],
+                    x: [0, '-0.2rem', '0.2rem', '-0.2rem', '0.2rem', 0]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 0.5,
+                    repeatDelay: 12,
+                    ease: "linear"
+                  }}
+                  className="relative md:cursor-grab md:active:cursor-grabbing"
                 >
-                  <motion.span
-                    animate={{
-                      textShadow: ["0 0 0 rgba(129,140,248,0)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 0 rgba(129,140,248,0)"],
-                      color: ["rgba(156,163,175,0.7)", "rgba(129,140,248,1)", "rgba(129,140,248,1)", "rgba(156,163,175,0.7)"]
-                    }}
-                    transition={{ repeat: Infinity, duration: 0.5, repeatDelay: 12, ease: "linear" }}
-                    className="text-xs font-mono tracking-widest uppercase"
-                  >
-                    Drag to dismiss
-                  </motion.span>
+                  <EpicCardHero onMinimize={() => setIsJiraMaximized(false)} />
+
+                  {/* Drag Hint */}
                   <motion.div
-                    animate={{ y: ['-0.3rem', '0.3rem', '-0.3rem'] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                    className="text-primary/50 mt-1"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    className="absolute -bottom-16 left-1/2 hidden w-full max-w-[12rem] -translate-x-1/2 flex-col items-center gap-2 text-gray-500 pointer-events-none md:flex"
                   >
-                    <Move className="w-5 h-5" />
+                    <motion.span
+                      animate={{
+                        textShadow: ["0 0 0 rgba(129,140,248,0)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 1rem rgba(129,140,248,0.8)", "0 0 0 rgba(129,140,248,0)"],
+                        color: ["rgba(156,163,175,0.7)", "rgba(129,140,248,1)", "rgba(129,140,248,1)", "rgba(156,163,175,0.7)"]
+                      }}
+                      transition={{ repeat: Infinity, duration: 0.5, repeatDelay: 12, ease: "linear" }}
+                      className="text-xs font-mono tracking-widest uppercase"
+                    >
+                      Drag to dismiss
+                    </motion.span>
+                    <motion.div
+                      animate={{ y: ['-0.3rem', '0.3rem', '-0.3rem'] }}
+                      transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                      className="text-primary/50 mt-1"
+                    >
+                      <Move className="w-5 h-5" />
+                    </motion.div>
                   </motion.div>
                 </motion.div>
               </motion.div>
