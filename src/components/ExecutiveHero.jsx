@@ -23,7 +23,7 @@ const ExecutiveHero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-zinc-950 overflow-hidden pt-20 text-white font-sans selection:bg-primary/30">
+    <section className="relative flex min-h-svh items-center justify-center overflow-hidden bg-zinc-950 pt-20 text-white font-sans selection:bg-primary/30">
       {/* Animated Dot Matrix Background */}
       <div className="absolute inset-0 pointer-events-none flex justify-center items-center opacity-20">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -60,15 +60,15 @@ const ExecutiveHero = () => {
             </span>
           </motion.div>
           
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-6">
+          <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-6">
             {siteConfig.name}
           </motion.h1>
           
-          <motion.h2 variants={itemVariants} className="text-2xl md:text-4xl font-semibold text-zinc-300 mb-6 tracking-tight">
+          <motion.h2 variants={itemVariants} className="text-xl sm:text-2xl md:text-4xl font-semibold text-zinc-300 mb-6 tracking-tight">
             {siteConfig.executiveSubtitle}
           </motion.h2>
           
-          <motion.p variants={itemVariants} className="text-lg md:text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
+          <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
             {siteConfig.executiveDescription}
           </motion.p>
           

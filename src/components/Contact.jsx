@@ -47,16 +47,16 @@ const Contact = () => {
     <section id="contact" className="py-20 px-6 max-w-2xl mx-auto border-t border-border mt-10">
       <div className="bg-panel border border-border rounded-xl shadow-2xl overflow-hidden">
         {/* Modal Header */}
-        <div className="bg-console/50 px-6 py-4 border-b border-border flex items-center justify-between">
-          <h2 className="text-lg font-bold text-gray-200 flex items-center gap-2">
+        <div className="bg-console/50 px-4 py-4 border-b border-border flex flex-wrap items-center justify-between gap-3 md:px-6">
+          <h2 className="text-lg font-bold text-gray-200 flex min-w-0 items-center gap-2">
             <CirclePlus className="w-5 h-5 text-primary" />
             Create Issue
           </h2>
-          <span className="text-xs font-mono text-gray-500 bg-border px-2 py-1 rounded">Project: Portfolio</span>
+          <span className="text-xs font-mono text-gray-500 bg-border px-2 py-1 rounded break-words">Project: Portfolio</span>
         </div>
 
         {/* Modal Body (Form) */}
-        <form className="p-6 space-y-6" onSubmit={handleSubmit} onReset={() => setFormState({ status: 'idle', message: '' })}>
+        <form className="p-4 space-y-6 md:p-6" onSubmit={handleSubmit} onReset={() => setFormState({ status: 'idle', message: '' })}>
           <input type="hidden" name="access_key" value={siteConfig.contactForm.accessKey} />
           <input type="hidden" name="subject" value={siteConfig.contactForm.subject} />
           <input type="hidden" name="from_name" value={siteConfig.contactForm.fromName} />
@@ -131,7 +131,7 @@ const Contact = () => {
             </div>
           )}
 
-          <div className="pt-4 flex items-center justify-end gap-3 border-t border-border mt-6">
+          <div className="pt-4 flex flex-wrap items-center justify-end gap-3 border-t border-border mt-6">
             <button type="reset" className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-60" disabled={isSending}>
               Cancel
             </button>

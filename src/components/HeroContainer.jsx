@@ -1,11 +1,45 @@
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Move } from 'lucide-react';
 import EpicCardHero from './EpicCardHero';
 import ExecutiveHero from './ExecutiveHero';
 
+const dragDismissQuery = '(min-width: 768px)';
+
+const useDragDismissEnabled = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(dragDismissQuery);
+    const handleChange = () => setIsEnabled(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return isEnabled;
+};
+
 const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
+  const isDragDismissEnabled = useDragDismissEnabled();
+
+  const handleDragEnd = (info) => {
+    if (!isDragDismissEnabled) return;
+
+    const thresholdX = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 100;
+    const thresholdY = typeof window !== 'undefined' ? window.innerHeight * 0.2 : 100;
+    const isFar = Math.abs(info.offset.x) > thresholdX || Math.abs(info.offset.y) > thresholdY;
+    const isFast = Math.abs(info.velocity.x) > 500 || Math.abs(info.velocity.y) > 500;
+
+    if (isFar || isFast) {
+      setIsJiraMaximized(false);
+    }
+  };
+
   return (
-    <div className="relative w-full min-h-screen bg-zinc-950 overflow-x-hidden">
+    <div className="relative min-h-svh w-full overflow-x-hidden bg-zinc-950">
       {/* Z-0: Executive Background */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <ExecutiveHero />
@@ -25,30 +59,25 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
       </AnimatePresence>
 
       {/* Z-40: Draggable Jira Card */}
-      <div className="relative z-40 pointer-events-none flex flex-col items-center min-h-screen w-full p-4 md:p-6 pt-24 pb-24">
+      <div className="relative z-40 flex min-h-svh w-full flex-col items-center p-4 pt-24 pb-24 pointer-events-none md:p-6">
         <AnimatePresence>
           {isJiraMaximized && (
             <motion.div
               layoutId="jira-window"
-              drag={true}
-              dragConstraints={{
-                left: typeof window !== 'undefined' ? -window.innerWidth / 1.5 : -500,
-                right: typeof window !== 'undefined' ? window.innerWidth / 1.5 : 500,
-                top: typeof window !== 'undefined' ? -window.innerHeight / 1.5 : -500,
-                bottom: typeof window !== 'undefined' ? window.innerHeight / 1.5 : 500
-              }}
+              drag={isDragDismissEnabled}
+              dragConstraints={
+                isDragDismissEnabled
+                  ? {
+                      left: typeof window !== 'undefined' ? -window.innerWidth / 1.5 : -500,
+                      right: typeof window !== 'undefined' ? window.innerWidth / 1.5 : 500,
+                      top: typeof window !== 'undefined' ? -window.innerHeight / 1.5 : -500,
+                      bottom: typeof window !== 'undefined' ? window.innerHeight / 1.5 : 500,
+                    }
+                  : undefined
+              }
               dragElastic={0.8}
               dragSnapToOrigin={true}
-              onDragEnd={(e, info) => {
-                const thresholdX = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 100;
-                const thresholdY = typeof window !== 'undefined' ? window.innerHeight * 0.2 : 100;
-                const isFar = Math.abs(info.offset.x) > thresholdX || Math.abs(info.offset.y) > thresholdY;
-                const isFast = Math.abs(info.velocity.x) > 500 || Math.abs(info.velocity.y) > 500;
-                
-                if (isFar || isFast) {
-                  setIsJiraMaximized(false);
-                }
-              }}
+              onDragEnd={(_, info) => handleDragEnd(info)}
               transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
               className="pointer-events-auto w-full max-w-4xl my-auto touch-pan-y"
               style={{ perspective: 1000 }}
@@ -64,16 +93,16 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   repeatDelay: 12,
                   ease: "linear"
                 }}
-                className="cursor-grab active:cursor-grabbing relative"
+                className="relative md:cursor-grab md:active:cursor-grabbing"
               >
-                <EpicCardHero />
+                <EpicCardHero onMinimize={() => setIsJiraMaximized(false)} />
 
                 {/* Drag Hint */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1, duration: 1 }}
-                  className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-500 gap-2 pointer-events-none w-full max-w-[12rem]"
+                  className="absolute -bottom-16 left-1/2 hidden w-full max-w-[12rem] -translate-x-1/2 flex-col items-center gap-2 text-gray-500 pointer-events-none md:flex"
                 >
                   <motion.span
                     animate={{

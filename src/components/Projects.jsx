@@ -12,21 +12,21 @@ const ProjectCard = ({ project }) => {
   const [isDecrypted, setIsDecrypted] = useState(false);
 
   return (
-    <div className="bg-panel border border-border rounded-lg p-4 flex flex-col hover:border-primary/50 transition-colors shadow-sm relative overflow-hidden group cursor-pointer">
+    <div className="bg-panel border border-border rounded-lg p-4 flex min-w-0 flex-col hover:border-primary/50 transition-colors shadow-sm relative overflow-hidden group cursor-pointer">
       <div className="flex justify-between items-start mb-3">
         <span className="text-xs font-mono text-gray-500 hover:text-primary transition-colors">{project.id}</span>
-        <button className="text-gray-500 hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button className="text-gray-500 hover:text-gray-300 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
           <MoreHorizontal className="w-4 h-4" />
         </button>
       </div>
       
-      <h3 className="font-medium text-gray-200 mb-2 leading-tight">{project.title}</h3>
+      <h3 className="font-medium text-gray-200 mb-2 leading-tight break-words">{project.title}</h3>
 
       <div className="relative flex-1 mt-2 mb-4">
         <motion.div 
           animate={{ filter: isDecrypted ? 'blur(0px)' : 'blur(4px)', opacity: isDecrypted ? 1 : 0.4 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="text-xs text-gray-400 leading-relaxed select-none pointer-events-none"
+          className="text-xs text-gray-400 leading-relaxed select-none pointer-events-none break-words"
         >
           {project.description}
         </motion.div>
@@ -44,8 +44,8 @@ const ProjectCard = ({ project }) => {
         )}
       </div>
       
-      <div className="mt-auto pt-3 border-t border-border flex justify-between items-center text-xs text-gray-500 font-mono">
-        <div className="flex items-center gap-2">
+      <div className="mt-auto pt-3 border-t border-border flex flex-wrap justify-between items-center gap-3 text-xs text-gray-500 font-mono">
+        <div className="flex min-w-0 items-center gap-2">
           <span className="px-1.5 py-0.5 bg-console border border-border rounded text-[10px] uppercase tracking-wider">{project.type}</span>
           {isDecrypted && <Unlock className="w-3 h-3 text-success" />}
         </div>
@@ -80,9 +80,9 @@ const Projects = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
         {/* Backlog Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 lg:min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <CircleDashed className="w-4 h-4 text-gray-500" />
@@ -92,16 +92,16 @@ const Projects = () => {
           </div>
           <div className="space-y-4">
             {backlogProjects.map((item) => (
-              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm opacity-60">
+              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm opacity-60 min-w-0">
                 <span className="text-xs font-mono text-gray-500">{item.id}</span>
-                <h3 className="font-medium text-gray-300 text-sm mt-1">{item.title}</h3>
+                <h3 className="font-medium text-gray-300 text-sm mt-1 break-words">{item.title}</h3>
               </div>
             ))}
           </div>
         </div>
 
         {/* In Progress Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 lg:min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
@@ -111,11 +111,11 @@ const Projects = () => {
           </div>
           <div className="space-y-4">
             {inProgressProjects.map((item) => (
-              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm border-l-2 border-l-primary">
+              <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm border-l-2 border-l-primary min-w-0">
                 <span className="text-xs font-mono text-gray-500">{item.id}</span>
-                <h3 className="font-medium text-gray-200 text-sm mt-1">{item.title}</h3>
+                <h3 className="font-medium text-gray-200 text-sm mt-1 break-words">{item.title}</h3>
                 <div className="flex items-center gap-2 mt-3">
-                   <div className="w-full bg-border rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full" style={{ width: `${item.progress}%` }}></div></div>
+                   <div className="min-w-0 flex-1 bg-border rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full" style={{ width: `${item.progress}%` }}></div></div>
                    <span className="text-[10px] text-gray-500 font-mono">{item.progress}%</span>
                 </div>
               </div>
@@ -124,7 +124,7 @@ const Projects = () => {
         </div>
 
         {/* Done Column */}
-        <div className="bg-console/30 rounded-xl p-4 border border-border/50 min-h-[25rem]">
+        <div className="bg-console/30 rounded-xl p-4 border border-border/50 lg:min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
               <CircleCheck className="w-4 h-4 text-success" />

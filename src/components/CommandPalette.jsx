@@ -24,7 +24,7 @@ const CommandPalette = () => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] px-4">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto px-4 py-4 sm:py-8 md:py-[10svh]">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-console/80 backdrop-blur-sm" 
@@ -32,7 +32,7 @@ const CommandPalette = () => {
       />
       
       <Command 
-        className="w-full max-w-xl bg-panel border border-border rounded-xl shadow-2xl overflow-hidden relative z-10 font-sans"
+        className="relative z-10 flex max-h-[calc(100svh-2rem)] w-full max-w-xl flex-col overflow-hidden rounded-xl border border-border bg-panel font-sans shadow-2xl sm:max-h-[calc(100svh-4rem)] md:max-h-[80svh]"
         label="Search issues, boards, projects..."
       >
         <div className="flex items-center px-4 py-3 border-b border-border">
@@ -47,7 +47,7 @@ const CommandPalette = () => {
           </button>
         </div>
 
-        <Command.List className="max-h-80 overflow-y-auto p-2">
+        <Command.List className="max-h-[calc(100svh-9rem)] overflow-y-auto p-2 md:max-h-[22rem]">
           <Command.Empty className="py-6 text-center text-sm text-gray-500">
             No results found.
           </Command.Empty>

@@ -20,23 +20,23 @@ const StakeholderComments = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="relative flex items-start gap-4"
+            className="relative flex items-start gap-3 sm:gap-4"
           >
             {/* Avatar */}
-            <div className="relative z-10 w-12 h-12 bg-console border-4 border-console rounded-full flex items-center justify-center shrink-0">
+            <div className="relative z-10 w-10 h-10 bg-console border-4 border-console rounded-full flex items-center justify-center shrink-0 sm:h-12 sm:w-12">
               <div className="w-full h-full rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center text-primary font-bold text-sm">
                 {comment.initials}
               </div>
             </div>
 
             {/* Comment Box */}
-            <div className="flex-1 bg-panel border border-border rounded-lg shadow-sm">
-              <div className="px-4 py-3 border-b border-border bg-console/30 flex items-center justify-between rounded-t-lg">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-bold text-gray-200 text-sm">@{comment.author}</span>
+            <div className="min-w-0 flex-1 bg-panel border border-border rounded-lg shadow-sm">
+              <div className="px-4 py-3 border-b border-border bg-console/30 flex flex-wrap items-center justify-between gap-3 rounded-t-lg">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <span className="font-bold text-gray-200 text-sm break-all">@{comment.author}</span>
                   <span className="text-xs text-gray-500 font-mono hidden md:inline">commented {comment.time}</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 items-center gap-3">
                   <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 border border-success/20 text-success text-[10px] uppercase font-bold rounded-full tracking-wider">
                     <Check className="w-3 h-3" />
                     {comment.status}
@@ -46,7 +46,7 @@ const StakeholderComments = () => {
                   </button>
                 </div>
               </div>
-              <div className="p-4 text-sm text-gray-300 leading-relaxed font-mono">
+              <div className="p-4 text-sm text-gray-300 leading-relaxed font-mono break-words">
                 {comment.text}
               </div>
             </div>
