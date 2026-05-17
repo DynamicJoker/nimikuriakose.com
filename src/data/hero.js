@@ -11,17 +11,25 @@ export const dodItems = [
   { step: 4, text: 'Aligning C-suite strategy with engineering execution.' },
 ];
 
+export const heroSummaryLines = [
+  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.',
+  'Translating high-level business requirements into actionable engineering sprints.',
+  'Focus areas: Risk mitigation, workflow automation, and scaling Agile methodologies across enterprise teams.',
+];
+
+export const heroSummaryText = heroSummaryLines.join('\n');
+
 /**
  * Returns the sequence for the TypeAnimation component.
  * @param {Function} setChecklist - Setter to update the checklist progress.
  */
 export const getTypingSequence = (setChecklist) => [
   500,
-  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\n',
+  `${heroSummaryLines[0]}\n`,
   500,
-  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\n',
+  `${heroSummaryLines.slice(0, 2).join('\n')}\n`,
   500,
-  'Tech-forward Project Manager specializing in Cloud Infrastructure & Security.\nTranslating high-level business requirements into actionable engineering sprints.\nFocus areas: Risk mitigation, workflow automation, and scaling Agile methodologies across enterprise teams.',
+  heroSummaryText,
   500,
   () => setChecklist(1),
   300,

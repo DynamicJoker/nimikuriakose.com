@@ -8,6 +8,9 @@
 const siteConfig = {
   name: 'Nimi Kuriakose',
   initials: 'NK',
+  siteUrl: 'https://nimikuriakose.com',
+  description:
+    'Nimi Kuriakose is a Security Project Manager bridging engineering execution, enterprise security, compliance, and cloud infrastructure strategy.',
   title: 'Bridging Engineering, Support, and Security',
   role: 'Security Project Manager',
   location: 'Remote / Hybrid',
@@ -21,6 +24,13 @@ const siteConfig = {
   executiveEyebrow: 'Executive Briefing',
   executiveSubtitle: 'Security Project Management Leader.',
   executiveDescription: 'Bridging the gap between engineering execution, enterprise security, and C-suite strategy.',
+
+  contactForm: {
+    endpoint: 'https://api.web3forms.com/submit',
+    accessKey: 'ebcde855-9e05-43e8-a93e-d603573e5647',
+    subject: 'New Portfolio Contact for Nimi Kuriakose',
+    fromName: 'nimikuriakose.com',
+  },
   
   navLinks: [
     { label: 'Home', targetId: 'top' },
