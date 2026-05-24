@@ -1,12 +1,42 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Layout, Menu, X, Grid } from 'lucide-react';
 import siteConfig from '../data/siteConfig';
 
 const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const firstMenuItemRef = useRef(null);
+  const lastMenuTriggerRef = useRef(null);
+  const menuWasOpenRef = useRef(false);
+  const prefersReducedMotion = useReducedMotion();
   const navMenuId = 'site-navigation-menu';
+  const menuPanelVariants = prefersReducedMotion
+    ? {
+        closed: { opacity: 0, transitionEnd: { visibility: 'hidden' } },
+        open: { opacity: 1, visibility: 'visible' },
+      }
+    : {
+        closed: { opacity: 0, y: '-0.75rem', transitionEnd: { visibility: 'hidden' } },
+        open: { opacity: 1, y: 0, visibility: 'visible' },
+      };
+  const menuListVariants = {
+    closed: {},
+    open: {
+      transition: prefersReducedMotion
+        ? { staggerChildren: 0 }
+        : { delayChildren: 0.03, staggerChildren: 0.02 },
+    },
+  };
+  const menuItemVariants = prefersReducedMotion
+    ? {
+        closed: { opacity: 0 },
+        open: { opacity: 1 },
+      }
+    : {
+        closed: { opacity: 0, x: '-0.75rem' },
+        open: { opacity: 1, x: 0 },
+      };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,6 +81,37 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
     return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      menuWasOpenRef.current = true;
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const focusDelay = prefersReducedMotion ? 0 : 120;
+      const focusTimer = window.setTimeout(() => {
+        firstMenuItemRef.current?.focus({ preventScroll: true });
+      }, focusDelay);
+
+      return () => {
+        window.clearTimeout(focusTimer);
+        document.body.style.overflow = previousOverflow;
+      };
+    }
+
+    if (menuWasOpenRef.current) {
+      menuWasOpenRef.current = false;
+      window.setTimeout(() => {
+        lastMenuTriggerRef.current?.focus({ preventScroll: true });
+      }, 0);
+    }
+
+    return undefined;
+  }, [isMenuOpen, prefersReducedMotion]);
+
+  const handleMenuToggle = (event) => {
+    lastMenuTriggerRef.current = event.currentTarget;
+    setIsMenuOpen((open) => !open);
+  };
+
   const handleNavClick = (link) => {
     setActiveTab(link.label);
     setIsMenuOpen(false);
@@ -71,7 +132,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
             aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-controls={navMenuId}
             aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={handleMenuToggle}
             className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
           >
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -93,7 +154,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  onClick={handleMenuToggle}
                   className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors rounded-full"
                   title="Open Navigation"
                 >
@@ -167,61 +228,73 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            id={navMenuId}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site navigation"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[90] bg-console/95 backdrop-blur-xl pt-24 px-6 overflow-y-auto"
-          >
-            <div className="flex flex-col gap-2 max-w-sm mx-auto">
-              {siteConfig.navLinks.map((link, idx) => (
-                <motion.button
-                  key={idx}
-                  type="button"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  onClick={() => handleNavClick(link)}
-                  className={`flex items-center justify-between w-full p-4 rounded-xl border transition-all ${
-                    activeTab === link.label
-                      ? 'bg-primary/10 border-primary/30 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.1)]'
-                      : 'border-border/50 text-gray-400 hover:bg-white/5 hover:border-border text-left'
-                  }`}
-                >
-                  <span className="text-lg font-bold">{link.label}</span>
-                  {activeTab === link.label && (
-                    <motion.div 
-                      layoutId="active-indicator"
-                      className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(129,140,248,0.8)]" 
-                    />
-                  )}
-                </motion.button>
-              ))}
-              
-              <div className="mt-8 pt-8 border-t border-border/50">
-                <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4 text-center">System Information</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
-                    <p className="text-[10px] text-gray-500 mb-1">Status</p>
-                    <p className="text-xs font-bold text-success">Deployed</p>
-                  </div>
-                  <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
-                    <p className="text-[10px] text-gray-500 mb-1">Version</p>
-                    <p className="text-xs font-bold text-gray-300">2.4.0-stable</p>
-                  </div>
-                </div>
+      <motion.div
+        id={navMenuId}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
+        aria-hidden={!isMenuOpen}
+        initial={false}
+        animate={isMenuOpen ? 'open' : 'closed'}
+        variants={menuPanelVariants}
+        transition={
+          prefersReducedMotion
+            ? { duration: 0 }
+            : { type: 'spring', damping: 28, stiffness: 260 }
+        }
+        onPointerDown={(event) => {
+          if (event.target === event.currentTarget) {
+            setIsMenuOpen(false);
+          }
+        }}
+        className={`fixed inset-0 z-[90] bg-console/95 px-6 pt-24 backdrop-blur-md xl:hidden ${
+          isMenuOpen ? 'pointer-events-auto overflow-y-auto' : 'pointer-events-none overflow-hidden'
+        }`}
+      >
+        <motion.div
+          variants={menuListVariants}
+          className="mx-auto flex max-w-sm flex-col gap-2"
+        >
+          {siteConfig.navLinks.map((link, idx) => (
+            <motion.button
+              key={link.label}
+              ref={idx === 0 ? firstMenuItemRef : null}
+              type="button"
+              variants={menuItemVariants}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.16, ease: 'easeOut' }}
+              tabIndex={isMenuOpen ? 0 : -1}
+              onClick={() => handleNavClick(link)}
+              className={`flex w-full items-center justify-between rounded-xl border p-4 transition-all ${
+                activeTab === link.label
+                  ? 'bg-primary/10 border-primary/30 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.1)]'
+                  : 'border-border/50 text-gray-400 hover:bg-white/5 hover:border-border text-left'
+              }`}
+            >
+              <span className="text-lg font-bold">{link.label}</span>
+              {activeTab === link.label && (
+                <motion.div
+                  layoutId="active-indicator"
+                  className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(129,140,248,0.8)]"
+                />
+              )}
+            </motion.button>
+          ))}
+
+          <div className="mt-8 border-t border-border/50 pt-8">
+            <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4 text-center">System Information</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
+                <p className="text-[10px] text-gray-500 mb-1">Status</p>
+                <p className="text-xs font-bold text-success">Deployed</p>
+              </div>
+              <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
+                <p className="text-[10px] text-gray-500 mb-1">Version</p>
+                <p className="text-xs font-bold text-gray-300">2.4.0-stable</p>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };
