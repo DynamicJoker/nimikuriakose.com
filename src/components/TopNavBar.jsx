@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { Layout, Menu, X, Grid } from 'lucide-react';
-import siteConfig from '../data/siteConfig';
+import { ChevronRight, Grid, Layout, Menu, Search, X } from 'lucide-react';
+import { navigationItems, scrollToTarget } from '../data/navigationActions';
 
-const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
+const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized, onOpenCommandPalette }) => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const firstMenuItemRef = useRef(null);
@@ -11,31 +11,44 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   const menuWasOpenRef = useRef(false);
   const prefersReducedMotion = useReducedMotion();
   const navMenuId = 'site-navigation-menu';
-  const menuPanelVariants = prefersReducedMotion
+
+  const overlayVariants = prefersReducedMotion
     ? {
         closed: { opacity: 0, transitionEnd: { visibility: 'hidden' } },
         open: { opacity: 1, visibility: 'visible' },
       }
     : {
-        closed: { opacity: 0, y: '-0.75rem', transitionEnd: { visibility: 'hidden' } },
-        open: { opacity: 1, y: 0, visibility: 'visible' },
+        closed: { opacity: 0, transitionEnd: { visibility: 'hidden' } },
+        open: { opacity: 1, visibility: 'visible' },
       };
+
+  const panelVariants = prefersReducedMotion
+    ? {
+        closed: { opacity: 0 },
+        open: { opacity: 1 },
+      }
+    : {
+        closed: { opacity: 0, y: -8, scale: 0.98 },
+        open: { opacity: 1, y: 0, scale: 1 },
+      };
+
   const menuListVariants = {
     closed: {},
     open: {
       transition: prefersReducedMotion
         ? { staggerChildren: 0 }
-        : { delayChildren: 0.03, staggerChildren: 0.02 },
+        : { delayChildren: 0.04, staggerChildren: 0.018 },
     },
   };
+
   const menuItemVariants = prefersReducedMotion
     ? {
         closed: { opacity: 0 },
         open: { opacity: 1 },
       }
     : {
-        closed: { opacity: 0, x: '-0.75rem' },
-        open: { opacity: 1, x: 0 },
+        closed: { opacity: 0, y: 4 },
+        open: { opacity: 1, y: 0 },
       };
 
   useEffect(() => {
@@ -43,7 +56,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const activeLink = siteConfig.navLinks.find(link => link.targetId === entry.target.id);
+            const activeLink = navigationItems.find((link) => link.targetId === entry.target.id);
             if (activeLink) {
               setActiveTab(activeLink.label);
             }
@@ -53,7 +66,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       { rootMargin: '-50% 0px -50% 0px' }
     );
 
-    siteConfig.navLinks.forEach((link) => {
+    navigationItems.forEach((link) => {
       if (link.targetId === 'top') return;
       const el = document.getElementById(link.targetId);
       if (el) observer.observe(el);
@@ -86,7 +99,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       menuWasOpenRef.current = true;
       const previousOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      const focusDelay = prefersReducedMotion ? 0 : 120;
+      const focusDelay = prefersReducedMotion ? 0 : 100;
       const focusTimer = window.setTimeout(() => {
         firstMenuItemRef.current?.focus({ preventScroll: true });
       }, focusDelay);
@@ -115,31 +128,41 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   const handleNavClick = (link) => {
     setActiveTab(link.label);
     setIsMenuOpen(false);
-    if (link.targetId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      document.getElementById(link.targetId)?.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToTarget(link.targetId);
+  };
+
+  const handleCommandClick = () => {
+    setIsMenuOpen(false);
+    onOpenCommandPalette?.();
   };
 
   return (
     <>
       <nav className="fixed top-0 w-full z-[100] px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-4">
-        <div className="flex items-center gap-3 pointer-events-auto">
-          {/* Mobile Menu Toggle (Always Hamburger on Mobile/Tablet) */}
-          <button 
+        <div className="flex min-w-0 items-center gap-3 pointer-events-auto">
+          <button
             type="button"
-            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-label={isMenuOpen ? 'Close issue navigator' : 'Open issue navigator'}
             aria-controls={navMenuId}
             aria-expanded={isMenuOpen}
             onClick={handleMenuToggle}
-            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-console/50 text-gray-300 backdrop-blur-md transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/60 xl:hidden"
           >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
 
-          {/* Desktop Adaptive Links Pill */}
-          <motion.div 
+          <button
+            type="button"
+            aria-label="Open command palette"
+            aria-haspopup="dialog"
+            onClick={handleCommandClick}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-console/50 text-gray-300 backdrop-blur-md transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/60 xl:hidden"
+            title="Search sections and actions"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+
+          <motion.div
             layout
             className="hidden xl:flex items-center backdrop-blur-md bg-console/40 p-1.5 rounded-full border border-border shadow-lg"
           >
@@ -148,14 +171,14 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
                 <motion.button
                   key="launcher"
                   type="button"
-                  aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                  aria-label={isMenuOpen ? 'Close issue navigator' : 'Open issue navigator'}
                   aria-controls={navMenuId}
                   aria-expanded={isMenuOpen}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   onClick={handleMenuToggle}
-                  className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors rounded-full"
+                  className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-primary/60"
                   title="Open Navigation"
                 >
                   <Grid className="w-6 h-6" />
@@ -168,11 +191,11 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   exit={{ opacity: 0, x: -20 }}
                   className="flex items-center gap-1 px-1"
                 >
-                  {siteConfig.navLinks.map((link, idx) => (
-                    <button 
-                      key={idx} 
+                  {navigationItems.map((link) => (
+                    <button
+                      key={link.id}
                       type="button"
-                      onClick={() => handleNavClick(link)} 
+                      onClick={() => handleNavClick(link)}
                       className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
                         activeTab === link.label
                           ? 'bg-primary/20 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.3)] border-primary/30 drop-shadow-[0_0_0.5rem_rgba(129,140,248,0.8)]'
@@ -188,8 +211,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
           </motion.div>
         </div>
 
-        {/* Right Minimized Icon Slot */}
-        <div className="pointer-events-auto h-12 flex items-center justify-end min-w-[7.5rem]">
+        <div className="pointer-events-auto h-12 flex min-w-[7.5rem] items-center justify-end">
           <AnimatePresence>
             {!isJiraMaximized && (
               <motion.div
@@ -227,71 +249,109 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <motion.div
         id={navMenuId}
         role="dialog"
         aria-modal="true"
-        aria-label="Site navigation"
+        aria-label="Issue Navigator"
         aria-hidden={!isMenuOpen}
         initial={false}
         animate={isMenuOpen ? 'open' : 'closed'}
-        variants={menuPanelVariants}
-        transition={
-          prefersReducedMotion
-            ? { duration: 0 }
-            : { type: 'spring', damping: 28, stiffness: 260 }
-        }
+        variants={overlayVariants}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.14, ease: 'easeOut' }}
         onPointerDown={(event) => {
           if (event.target === event.currentTarget) {
             setIsMenuOpen(false);
           }
         }}
-        className={`fixed inset-0 z-[90] bg-console/95 px-6 pt-24 backdrop-blur-md xl:hidden ${
-          isMenuOpen ? 'pointer-events-auto overflow-y-auto' : 'pointer-events-none overflow-hidden'
-        }`}
+        className={`fixed inset-0 z-[90] px-2 pb-4 pt-20 sm:px-4 md:px-6 ${
+          isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'
+        } bg-console/35 backdrop-blur-[2px]`}
       >
         <motion.div
-          variants={menuListVariants}
-          className="mx-auto flex max-w-sm flex-col gap-2"
+          variants={panelVariants}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { type: 'spring', stiffness: 380, damping: 34, mass: 0.8 }
+          }
+          className="pointer-events-auto flex max-h-[calc(100svh-6rem)] w-full max-w-[calc(100vw-1rem)] flex-col overflow-hidden rounded-lg border border-border bg-panel/95 shadow-2xl shadow-black/40 backdrop-blur-md sm:max-w-md xl:ml-0"
         >
-          {siteConfig.navLinks.map((link, idx) => (
-            <motion.button
-              key={link.label}
-              ref={idx === 0 ? firstMenuItemRef : null}
-              type="button"
-              variants={menuItemVariants}
-              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.16, ease: 'easeOut' }}
-              tabIndex={isMenuOpen ? 0 : -1}
-              onClick={() => handleNavClick(link)}
-              className={`flex w-full items-center justify-between rounded-xl border p-4 transition-all ${
-                activeTab === link.label
-                  ? 'bg-primary/10 border-primary/30 text-primary-light shadow-[0_0_1rem_rgba(129,140,248,0.1)]'
-                  : 'border-border/50 text-gray-400 hover:bg-white/5 hover:border-border text-left'
-              }`}
-            >
-              <span className="text-lg font-bold">{link.label}</span>
-              {activeTab === link.label && (
-                <motion.div
-                  layoutId="active-indicator"
-                  className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(129,140,248,0.8)]"
-                />
-              )}
-            </motion.button>
-          ))}
-
-          <div className="mt-8 border-t border-border/50 pt-8">
-            <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4 text-center">System Information</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
-                <p className="text-[10px] text-gray-500 mb-1">Status</p>
-                <p className="text-xs font-bold text-success">Deployed</p>
+          <div className="border-b border-border bg-console/70 px-4 py-3">
+            <div className="flex min-w-0 items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[0.65rem] font-bold uppercase tracking-widest text-gray-500">
+                  Project: Portfolio
+                </p>
+                <h2 className="truncate text-sm font-bold text-white">Issue Navigator</h2>
               </div>
-              <div className="bg-panel/50 border border-border p-3 rounded-lg text-center">
-                <p className="text-[10px] text-gray-500 mb-1">Version</p>
-                <p className="text-xs font-bold text-gray-300">2.4.0-stable</p>
+              <div className="flex shrink-0 items-center gap-2 rounded-md border border-success/30 bg-success/10 px-2 py-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(16,185,129,0.9)]" />
+                <span className="text-[0.65rem] font-bold uppercase tracking-wider text-success">
+                  Live
+                </span>
               </div>
             </div>
+          </div>
+
+          <motion.div
+            variants={menuListVariants}
+            className="max-h-[calc(100svh-13rem)] overflow-y-auto p-2 [scrollbar-gutter:stable]"
+          >
+            {navigationItems.map((link, idx) => {
+              const isActive = activeTab === link.label;
+
+              return (
+                <motion.button
+                  key={link.id}
+                  ref={idx === 0 ? firstMenuItemRef : null}
+                  type="button"
+                  variants={menuItemVariants}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.14, ease: 'easeOut' }}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                  onClick={() => handleNavClick(link)}
+                  className={`grid min-h-14 w-full grid-cols-[4.75rem_minmax(0,1fr)_1.25rem] items-center gap-3 rounded-md border px-3 py-2.5 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-primary/60 ${
+                    isActive
+                      ? 'border-primary/35 bg-primary/10 text-primary-light'
+                      : 'border-transparent text-gray-300 hover:border-border hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <span className="min-w-0 font-mono text-xs font-bold text-gray-500">
+                    {link.issueKey}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-bold text-white">{link.label}</span>
+                    <span className="mt-1 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[0.68rem] uppercase tracking-wide text-gray-500">
+                      <span>{link.type}</span>
+                      <span className="h-1 w-1 rounded-full bg-gray-600" />
+                      <span>{link.status}</span>
+                    </span>
+                  </span>
+                  <span className="flex justify-end">
+                    {isActive ? (
+                      <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(129,140,248,0.8)]" />
+                    ) : (
+                      <ChevronRight className="h-4 w-4 text-gray-600" />
+                    )}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </motion.div>
+
+          <div className="border-t border-border bg-console/60 px-4 py-3">
+            <button
+              type="button"
+              tabIndex={isMenuOpen ? 0 : -1}
+              onClick={handleCommandClick}
+              className="flex min-h-10 w-full min-w-0 items-center gap-3 rounded-md border border-border bg-panel/70 px-3 py-2 text-left text-sm text-gray-300 transition-colors hover:border-primary/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/60"
+            >
+              <Search className="h-4 w-4 shrink-0 text-primary" />
+              <span className="min-w-0 flex-1 truncate">Search issues and actions</span>
+              <span className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 font-mono text-[0.65rem] text-gray-500 sm:inline">
+                Ctrl K
+              </span>
+            </button>
           </div>
         </motion.div>
       </motion.div>

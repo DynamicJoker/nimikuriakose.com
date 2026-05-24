@@ -13,10 +13,15 @@ import Footer from './components/Footer';
 
 function App() {
   const [isJiraMaximized, setIsJiraMaximized] = useState(true);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   return (
     <div className="relative min-h-screen bg-console font-sans text-gray-300 selection:bg-primary/30">
-      <TopNavBar isJiraMaximized={isJiraMaximized} setIsJiraMaximized={setIsJiraMaximized} />
+      <TopNavBar
+        isJiraMaximized={isJiraMaximized}
+        setIsJiraMaximized={setIsJiraMaximized}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+      />
       {/* ── Hero / Epic ticket ─────────────────────────────── */}
       <HeroContainer isJiraMaximized={isJiraMaximized} setIsJiraMaximized={setIsJiraMaximized} />
 
@@ -56,7 +61,7 @@ function App() {
       </div>
 
       {/* ── Global overlays & chrome ───────────────────────── */}
-      <CommandPalette />
+      <CommandPalette open={isCommandPaletteOpen} onOpenChange={setIsCommandPaletteOpen} />
       <Footer />
     </div>
   );
