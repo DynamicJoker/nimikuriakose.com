@@ -39,7 +39,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
   };
 
   return (
-    <div className="relative min-h-svh w-full overflow-x-hidden bg-zinc-950">
+    <div className="relative min-h-svh w-full bg-zinc-950">
       {/* Z-0: Executive Background */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <ExecutiveHero />
@@ -79,7 +79,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
               dragSnapToOrigin={true}
               onDragEnd={(_, info) => handleDragEnd(info)}
               transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
-              className="pointer-events-auto w-full max-w-4xl my-auto touch-pan-y"
+              className="pointer-events-auto my-auto w-full max-w-[calc(100vw-2rem)] min-w-0 touch-pan-y md:max-w-4xl"
               style={{ perspective: 1000 }}
             >
               <motion.div
@@ -99,7 +99,7 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                     repeatDelay: 12,
                     ease: "linear"
                   }}
-                  className="relative md:cursor-grab md:active:cursor-grabbing"
+                  className="relative min-w-0 md:cursor-grab md:active:cursor-grabbing"
                 >
                   <EpicCardHero onMinimize={() => setIsJiraMaximized(false)} />
 

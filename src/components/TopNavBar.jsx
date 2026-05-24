@@ -6,6 +6,7 @@ import siteConfig from '../data/siteConfig';
 const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navMenuId = 'site-navigation-menu';
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,6 +40,17 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, []);
+
   const handleNavClick = (link) => {
     setActiveTab(link.label);
     setIsMenuOpen(false);
@@ -55,6 +67,10 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
         <div className="flex items-center gap-3 pointer-events-auto">
           {/* Mobile Menu Toggle (Always Hamburger on Mobile/Tablet) */}
           <button 
+            type="button"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-controls={navMenuId}
+            aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-console/40 backdrop-blur-md border border-border text-gray-300 hover:text-white transition-colors"
           >
@@ -70,6 +86,10 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
               {isJiraMaximized ? (
                 <motion.button
                   key="launcher"
+                  type="button"
+                  aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                  aria-controls={navMenuId}
+                  aria-expanded={isMenuOpen}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -90,6 +110,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   {siteConfig.navLinks.map((link, idx) => (
                     <button 
                       key={idx} 
+                      type="button"
                       onClick={() => handleNavClick(link)} 
                       className={`text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border ${
                         activeTab === link.label
@@ -124,6 +145,8 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
                 />
                 <motion.button
                   type="button"
+                  aria-label="Restore hero card"
+                  title="Restore hero card"
                   onClick={() => {
                     setIsJiraMaximized(true);
                     setIsMenuOpen(false);
@@ -147,6 +170,10 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            id={navMenuId}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -157,6 +184,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized }) => {
               {siteConfig.navLinks.map((link, idx) => (
                 <motion.button
                   key={idx}
+                  type="button"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 }}

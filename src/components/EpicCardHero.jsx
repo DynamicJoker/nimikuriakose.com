@@ -14,10 +14,10 @@ const EpicCardHero = ({ onMinimize }) => {
   const [checklist, setChecklist] = useState(0);
 
   return (
-    <div className="w-full max-w-4xl bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:text-base cursor-auto">
+    <div className="w-full max-w-full min-w-0 bg-panel rounded-xl border border-border shadow-2xl overflow-hidden text-sm md:max-w-4xl md:text-base cursor-auto">
         
         {/* Top Header / Breadcrumb */}
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-3 px-4 py-3 border-b border-border bg-console/50 sm:items-center md:px-6 md:py-4">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-3 px-4 py-3 border-b border-border bg-console/50 sm:items-center md:px-6 md:py-4">
           <div className="flex min-w-0 items-center gap-3 overflow-hidden text-xs font-mono text-gray-400 md:text-sm">
             <span className="flex min-w-0 items-center gap-1 hover:text-primary transition-colors cursor-pointer">
               <Shield className="w-4 h-4 shrink-0 text-primary" />
@@ -51,42 +51,42 @@ const EpicCardHero = ({ onMinimize }) => {
         </div>
 
         {/* Issue Body */}
-        <div className="p-4 md:p-8">
-          <h1 className="text-2xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+        <div className="min-w-0 p-4 md:p-8">
+          <h1 className="mb-6 break-words text-[1.35rem] font-extrabold leading-tight tracking-tight text-white sm:text-2xl md:text-5xl">
             {siteConfig.title}
           </h1>
           
           {/* Metadata Row */}
-          <div className="flex flex-wrap gap-6 mb-8 text-sm text-gray-400 border-b border-border pb-6">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs border border-primary/30">{siteConfig.initials}</div>
-              <span>Assignee: <span className="text-gray-200 font-medium">{siteConfig.name}</span></span>
+          <div className="mb-8 grid min-w-0 grid-cols-1 gap-4 border-b border-border pb-6 text-sm text-gray-400 sm:grid-cols-2 lg:flex lg:flex-wrap lg:gap-6">
+            <div className="flex min-w-0 items-center gap-2">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/20 text-xs font-bold text-primary">{siteConfig.initials}</div>
+              <span className="min-w-0 break-words">Assignee: <span className="font-medium text-gray-200">{siteConfig.name}</span></span>
             </div>
-            <div className="flex items-center gap-2">
-              <Briefcase className="w-4 h-4" />
-              <span>Role: <span className="text-gray-200">{siteConfig.role}</span></span>
+            <div className="flex min-w-0 items-center gap-2">
+              <Briefcase className="h-4 w-4 shrink-0" />
+              <span className="min-w-0 break-words">Role: <span className="text-gray-200">{siteConfig.role}</span></span>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              <span>Velocity: <span className="text-gray-200">{siteConfig.experience}</span></span>
+            <div className="flex min-w-0 items-center gap-2">
+              <Clock className="h-4 w-4 shrink-0" />
+              <span className="min-w-0 break-words">Velocity: <span className="text-gray-200">{siteConfig.experience}</span></span>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span>Location: <span className="text-gray-200">{siteConfig.location}</span></span>
+            <div className="flex min-w-0 items-center gap-2">
+              <MapPin className="h-4 w-4 shrink-0" />
+              <span className="min-w-0 break-words">Location: <span className="text-gray-200">{siteConfig.location}</span></span>
             </div>
           </div>
 
           {/* Description Section */}
           <div className="mb-8">
             <h3 className="text-gray-400 font-medium mb-3 flex items-center gap-2">Epic Summary</h3>
-            <div className="bg-console border border-border rounded-lg p-5 font-mono text-gray-300 min-h-[10rem] leading-relaxed relative">
+            <div className="relative min-h-[10rem] min-w-0 overflow-hidden rounded-lg border border-border bg-console p-4 font-mono text-sm leading-relaxed text-gray-300 md:p-5 md:text-base">
               <TypeAnimation
                 sequence={getTypingSequence(setChecklist)}
                 wrapper="div"
                 cursor={true}
                 repeat={0}
                 speed={85}
-                style={{ whiteSpace: 'pre-line' }}
+                style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-line', wordBreak: 'break-word' }}
               />
             </div>
           </div>
@@ -99,12 +99,12 @@ const EpicCardHero = ({ onMinimize }) => {
                 key={idx}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: checklist >= item.step ? 1 : 0, x: checklist >= item.step ? 0 : -10 }}
-                className="flex items-center gap-3 text-gray-300 bg-console/50 p-3 rounded-md border border-border"
+                className="flex min-w-0 items-start gap-3 rounded-md border border-border bg-console/50 p-3 text-gray-300 sm:items-center"
               >
-                <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${checklist >= item.step ? 'bg-primary border-primary text-console' : 'border-gray-600'}`}>
+                <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-colors ${checklist >= item.step ? 'bg-primary border-primary text-console' : 'border-gray-600'}`}>
                   {checklist >= item.step && <SquareCheck className="w-3.5 h-3.5" />}
                 </div>
-                <span className={`transition-all ${checklist >= item.step ? 'line-through text-gray-600' : ''}`}>{item.text}</span>
+                <span className={`min-w-0 break-words transition-all ${checklist >= item.step ? 'line-through text-gray-600' : ''}`}>{item.text}</span>
               </motion.div>
             ))}
           </div>
@@ -114,35 +114,40 @@ const EpicCardHero = ({ onMinimize }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: checklist >= 4 ? 1 : 0 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap items-center gap-4 pt-4 border-t border-border mt-4"
+            className="mt-4 flex min-w-0 flex-wrap items-center gap-3 border-t border-border pt-4 sm:gap-4"
           >
             <button 
+              type="button"
               onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 py-2.5 bg-primary text-console rounded-md font-bold hover:bg-primary-light transition-colors"
+              className="min-h-10 min-w-0 rounded-md bg-primary px-5 py-2.5 font-bold text-console transition-colors hover:bg-primary-light sm:px-6"
             >
               View Roadmap
             </button>
             <button 
+              type="button"
               onClick={() => alert('Downloading Secure Resume...')}
-              className="px-6 py-2.5 bg-console text-gray-200 border border-border rounded-md font-bold hover:text-white hover:border-gray-500 transition-colors flex items-center gap-2"
+              className="flex min-h-10 min-w-0 items-center gap-2 rounded-md border border-border bg-console px-5 py-2.5 font-bold text-gray-200 transition-colors hover:border-gray-500 hover:text-white sm:px-6"
             >
-              <Download className="w-4 h-4" />
-              Download Resume
+              <Download className="h-4 w-4 shrink-0" />
+              <span className="min-w-0 break-words">Download Resume</span>
             </button>
 
-            <div className="flex gap-2 ml-auto md:ml-4">
-              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0">
+            <div className="ml-auto flex gap-2 md:ml-4">
+              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile" title="Open LinkedIn profile" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border border-border bg-console text-gray-400 transition-all hover:border-primary hover:text-primary">
                 <Globe className="w-5 h-5" />
               </a>
               <button 
+                type="button"
+                aria-label="Jump to contact form"
+                title="Jump to contact form"
                 onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                className="p-2.5 bg-console border border-border rounded-md text-gray-400 hover:text-primary hover:border-primary transition-all flex-shrink-0"
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border border-border bg-console text-gray-400 transition-all hover:border-primary hover:text-primary"
               >
                 <Mail className="w-5 h-5" />
               </button>
             </div>
             <div className="flex-1 hidden lg:block"></div>
-            <button className="p-2.5 text-gray-500 hover:text-gray-300 bg-console rounded-md border border-border hidden lg:block flex-shrink-0">
+            <button type="button" aria-label="More hero actions" title="More hero actions" className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border border-border bg-console text-gray-500 hover:text-gray-300 lg:flex">
               <MoreHorizontal className="w-5 h-5" />
             </button>
           </motion.div>
