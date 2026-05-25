@@ -104,18 +104,23 @@ const Projects = () => {
         <div className="bg-console/30 rounded-xl p-4 border border-border/50 lg:min-h-[25rem]">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+              <span className="reactive-status-pulse h-2.5 w-2.5 rounded-full bg-primary"></span>
               IN PROGRESS
             </h3>
             <span className="text-xs bg-border px-2 py-0.5 rounded text-gray-500 font-mono">{inProgressProjects.length}</span>
           </div>
           <div className="space-y-4">
-            {inProgressProjects.map((item) => (
+            {inProgressProjects.map((item, index) => (
               <div key={item.id} className="bg-panel border border-border rounded-lg p-4 shadow-sm border-l-2 border-l-primary min-w-0">
                 <span className="text-xs font-mono text-gray-500">{item.id}</span>
                 <h3 className="font-medium text-gray-200 text-sm mt-1 break-words">{item.title}</h3>
                 <div className="flex items-center gap-2 mt-3">
-                   <div className="min-w-0 flex-1 bg-border rounded-full h-1.5"><div className="bg-primary h-1.5 rounded-full" style={{ width: `${item.progress}%` }}></div></div>
+                   <div className="min-w-0 flex-1 bg-border rounded-full h-1.5 overflow-hidden">
+                     <div
+                       className="reactive-progress-shimmer bg-primary h-1.5 rounded-full"
+                       style={{ width: `${item.progress}%`, '--motion-delay': `${index * 0.35}s` }}
+                     ></div>
+                   </div>
                    <span className="text-[10px] text-gray-500 font-mono">{item.progress}%</span>
                 </div>
               </div>

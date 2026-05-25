@@ -119,7 +119,7 @@ const Contact = () => {
             <div
               className={`rounded-md border px-4 py-3 text-sm font-mono ${
                 formState.status === 'success'
-                  ? 'border-success/30 bg-success/10 text-success'
+                  ? 'reactive-success-settle border-success/30 bg-success/10 text-success'
                   : formState.status === 'error'
                     ? 'border-danger/30 bg-danger/10 text-danger'
                     : 'border-primary/30 bg-primary/10 text-primary-light'
@@ -135,7 +135,7 @@ const Contact = () => {
             <button type="reset" className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-60" disabled={isSending}>
               Cancel
             </button>
-            <button type="submit" className="px-6 py-2 bg-primary text-console text-sm font-bold rounded-md hover:bg-primary-light transition-colors flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-60" disabled={isSending}>
+            <button type="submit" className={`px-6 py-2 bg-primary text-console text-sm font-bold rounded-md hover:bg-primary-light transition-colors flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-60 ${isSending ? 'reactive-status-pulse' : ''}`} disabled={isSending}>
               {isSending ? 'Creating...' : 'Create Ticket'} <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>

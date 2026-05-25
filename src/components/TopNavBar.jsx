@@ -334,7 +334,7 @@ const TopNavBar = ({ isJiraMaximized, onRestoreEpic, onOpenCommandPalette }) => 
                   </span>
                   <span className="flex justify-end">
                     {isActive ? (
-                      <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(129,140,248,0.8)]" />
+                      <span className="reactive-active-dot h-2 w-2 rounded-full bg-primary" />
                     ) : (
                       <ChevronRight className="h-4 w-4 text-gray-600" />
                     )}

@@ -36,7 +36,10 @@ const MethodologyWiki = () => {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="relative"
               >
-                <div className="absolute -left-[3rem] top-0 w-8 h-8 bg-console border-2 border-border rounded-full flex items-center justify-center text-gray-400 z-10 shadow-sm">
+                <div
+                  className="reactive-status-pulse absolute -left-[3rem] top-0 w-8 h-8 bg-console border-2 border-border rounded-full flex items-center justify-center text-gray-400 z-10 shadow-sm"
+                  style={{ '--motion-delay': `${index * 0.2}s` }}
+                >
                   <Icon className="w-4 h-4 text-primary" />
                 </div>
                 <h3 className="text-base md:text-lg font-bold text-gray-200 mb-2">{phase.title}</h3>
