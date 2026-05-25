@@ -9,7 +9,7 @@
  *   role     – Job title
  *   company  – Employer name
  *   tags     – Array of category badges shown on the card
- *   details  – Description paragraph
+ *   details  - Description bullets
  */
 
 const experience = [
@@ -18,48 +18,64 @@ const experience = [
     role: 'Security Project Manager',
     company: 'Employ',
     tags: ['Security Patch', 'Metric', 'Infrastructure'],
-    details:
-      'Planned and Executed roll out of Rapid7 and Cobalt Integration into core products for real-time monitoring and penetration testing on AWS, GCP and Azure assets and user end points. Lead the charge on SOC 2 Type II, ISO 27001, GRC and GDPR/CCPA audits. Spearheaded a cross-functional initiative between DevOps and Engineering to prioritize and remediate critical security vulnerabilities. Developed and managed a robust vendor risk assessment framework.',
+    details: [
+      'Planned and executed the rollout of Rapid7 and Cobalt integrations into core products for real-time monitoring and penetration testing.',
+      'Supported AWS, GCP, Azure assets, and user endpoints while leading SOC 2 Type II, ISO 27001, GRC, and GDPR/CCPA audit work.',
+      'Coordinated DevOps and Engineering remediation of critical security vulnerabilities.',
+      'Developed and managed a robust vendor risk assessment framework.',
+    ],
   },
   {
     version: 'v2020.08 - 2025.01',
     role: 'Trust and Safety Specialist',
     company: 'Amazon Web Services',
     tags: ['Feature Shipped', 'Process Update'],
-    details:
-      'Developed and maintained escalation processes and SOPs to exceed SLAs. Managed escalated Tier 3 incidents using internal ticketing systems. Reviewed abuse reports, conducted root cause analysis and suggest architectural changes. Interim manager for 14 weeks and project manager for 5+ projects.',
+    details: [
+      'Developed and maintained escalation processes and SOPs to exceed SLAs.',
+      'Managed escalated Tier 3 incidents using internal ticketing systems.',
+      'Reviewed abuse reports, conducted root cause analysis, and suggested architectural changes.',
+      'Served as interim manager for 14 weeks and project manager for 5+ projects.',
+    ],
   },
   {
     version: 'v2019.01 - 2020.08',
     role: 'Virtual Customer Service Associate',
     company: 'Amazon',
     tags: ['Metric', 'Support'],
-    details:
-      'Investigated and resolved customer issues while meeting target KPIs and 99% positive customer experience score.',
+    details: [
+      'Investigated and resolved customer issues while meeting target KPIs.',
+      'Maintained a 99% positive customer experience score.',
+    ],
   },
   {
     version: 'v2018.01 - 2018.12',
     role: 'Senior Technical Support Associate',
     company: 'Tech Mahindra Limited',
     tags: ['Infrastructure', 'Optimization'],
-    details:
-      'Provided Technical Support and Network Engineering for a US-based Fortune 50 client. Identified and improved 3 escalation processes by applying advanced analytical and troubleshooting strategies.',
+    details: [
+      'Provided technical support and network engineering for a US-based Fortune 50 client.',
+      'Identified and improved 3 escalation processes using advanced analytical and troubleshooting strategies.',
+    ],
   },
   {
     version: 'v2017.01 - 2018.01',
     role: 'Trainee Information Security Associate',
     company: 'SecuArk Private Limited',
     tags: ['Security Patch', 'Feature Shipped'],
-    details:
-      'Conducted Vulnerability Assessment and Penetration Testing (Application and Network). Designed, developed, and supported implementation of 5+ project-specific security solutions.',
+    details: [
+      'Conducted Vulnerability Assessment and Penetration Testing across application and network environments.',
+      'Designed, developed, and supported implementation of 5+ project-specific security solutions.',
+    ],
   },
   {
     version: 'v2016.01 - 2017.01',
     role: 'Support Consultant',
     company: 'Open Destinations Infotech. Pvt. Ltd',
     tags: ['Support', 'Metric'],
-    details:
-      'Handled client escalations related to new releases and created incident impact documents. Managed a portfolio of key accounts, including onboarding, product training, and quarterly business reviews.',
+    details: [
+      'Handled client escalations related to new releases and created incident impact documents.',
+      'Managed a portfolio of key accounts across onboarding, product training, and quarterly business reviews.',
+    ],
   },
 ];
 

@@ -49,7 +49,7 @@ ${experience
 
 - Period: ${role.version}
 - Focus: ${role.tags.join(', ')}
-- ${role.details}`
+${role.details.map((detail) => `- ${detail}`).join('\n')}`
   )
   .join('\n\n')}
 
@@ -269,7 +269,9 @@ export const staticPortfolioHtml = () => `
         (role) => `<div class="crawler-portfolio__card">
           <h3>${escapeHtml(role.role)} at ${escapeHtml(role.company)}</h3>
           <p class="crawler-portfolio__meta">${escapeHtml(role.version)} | ${escapeHtml(role.tags.join(', '))}</p>
-          <p>${escapeHtml(role.details)}</p>
+          <ul>
+            ${listItems(role.details, (detail) => `<li>${escapeHtml(detail)}</li>`)}
+          </ul>
         </div>`
       )}
     </section>

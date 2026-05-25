@@ -29,9 +29,14 @@ const Experience = () => {
               </div>
               <h3 className="text-lg font-bold text-gray-200">{release.role}</h3>
               <h4 className="text-sm font-medium text-gray-400 mb-4">@ {release.company}</h4>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                {release.details}
-              </p>
+              <ul className="space-y-2 text-sm text-gray-400 leading-relaxed">
+                {release.details.map((detail) => (
+                  <li key={detail} className="flex gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70"></span>
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
