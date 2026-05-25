@@ -79,11 +79,23 @@ export const utilityActions = [
   },
 ];
 
-export const scrollToTarget = (targetId) => {
+const getScrollBehavior = (behavior) => {
+  if (behavior) return behavior;
+
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return 'smooth';
+  }
+
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+};
+
+export const scrollToTarget = (targetId, options = {}) => {
+  const behavior = getScrollBehavior(options.behavior);
+
   if (targetId === 'top') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior });
     return;
   }
 
-  document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById(targetId)?.scrollIntoView({ behavior, block: 'start' });
 };

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
 import siteConfig from '../data/siteConfig';
+import { scrollToTarget } from '../data/navigationActions';
 
 const ExecutiveHero = () => {
   const containerVariants = {
@@ -74,7 +75,7 @@ const ExecutiveHero = () => {
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
             <button 
-              onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => scrollToTarget('experience')}
               className="px-8 py-4 bg-white text-zinc-950 hover:bg-zinc-200 rounded-full font-bold transition-all shadow-[0_0_1.5rem_rgba(255,255,255,0.1)] flex items-center justify-center gap-2"
             >
               View Impact & ROI

@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ChevronRight, Grid, Layout, Menu, Search, X } from 'lucide-react';
 import { navigationItems, scrollToTarget } from '../data/navigationActions';
 
-const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized, onOpenCommandPalette }) => {
+const TopNavBar = ({ isJiraMaximized, onRestoreEpic, onOpenCommandPalette }) => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const firstMenuItemRef = useRef(null);
@@ -136,6 +136,14 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized, onOpenCommandPalette }
     onOpenCommandPalette?.();
   };
 
+  const handleRestoreEpic = () => {
+    onRestoreEpic?.();
+    setIsMenuOpen(false);
+    window.requestAnimationFrame(() => {
+      scrollToTarget('top', { behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+  };
+
   return (
     <>
       <nav className="fixed top-0 w-full z-[100] px-4 md:px-6 py-4 flex items-center justify-between pointer-events-none gap-4">
@@ -228,12 +236,9 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized, onOpenCommandPalette }
                 />
                 <motion.button
                   type="button"
-                  aria-label="Restore hero card"
-                  title="Restore hero card"
-                  onClick={() => {
-                    setIsJiraMaximized(true);
-                    setIsMenuOpen(false);
-                  }}
+                  aria-label="Restore hero epic and return to top"
+                  title="Restore hero epic and return to top"
+                  onClick={handleRestoreEpic}
                   className="relative z-10 flex h-10 w-full items-center justify-center gap-2 rounded-full border border-transparent px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-console focus:outline-none focus:ring-2 focus:ring-primary/60 group cursor-pointer"
                   initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -241,7 +246,7 @@ const TopNavBar = ({ isJiraMaximized, setIsJiraMaximized, onOpenCommandPalette }
                   transition={{ delay: 0.18, duration: 0.16, ease: 'easeOut' }}
                 >
                   <Layout className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                  <span>View Epic</span>
+                  <span className="whitespace-nowrap">View Epic</span>
                 </motion.button>
               </motion.div>
             )}

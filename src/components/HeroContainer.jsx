@@ -22,7 +22,7 @@ const useDragDismissEnabled = () => {
   return isEnabled;
 };
 
-const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
+const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized, heroHydrationMode }) => {
   const isDragDismissEnabled = useDragDismissEnabled();
 
   const handleDragEnd = (info) => {
@@ -101,7 +101,10 @@ const HeroContainer = ({ isJiraMaximized, setIsJiraMaximized }) => {
                   }}
                   className="relative min-w-0 md:cursor-grab md:active:cursor-grabbing"
                 >
-                  <EpicCardHero onMinimize={() => setIsJiraMaximized(false)} />
+                  <EpicCardHero
+                    hydrationMode={heroHydrationMode}
+                    onMinimize={() => setIsJiraMaximized(false)}
+                  />
 
                   {/* Drag Hint */}
                   <motion.div

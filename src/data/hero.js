@@ -1,7 +1,7 @@
 /**
  * Hero section data.
  * ──────────────────
- * Contains the "Definition of Done" checklist and the typing animation sequence.
+ * Contains the "Definition of Done" checklist and hero card hydration timing.
  */
 
 export const dodItems = [
@@ -19,26 +19,20 @@ export const heroSummaryLines = [
 
 export const heroSummaryText = heroSummaryLines.join('\n');
 
-/**
- * Returns the sequence for the TypeAnimation component.
- * @param {Function} setChecklist - Setter to update the checklist progress.
- */
-export const getTypingSequence = (setChecklist) => [
-  500,
-  `${heroSummaryLines[0]}\n`,
-  500,
-  `${heroSummaryLines.slice(0, 2).join('\n')}\n`,
-  500,
-  heroSummaryText,
-  500,
-  () => setChecklist(1),
-  300,
-  () => setChecklist(2),
-  300,
-  () => setChecklist(3),
-  300,
-  () => setChecklist(4),
-];
+export const heroAnimationTiming = {
+  initial: {
+    syncDuration: 950,
+    checklistStartDelay: 180,
+    checklistStepInterval: 120,
+    actionsRevealDelay: 120,
+  },
+  restore: {
+    syncDuration: 220,
+    checklistStartDelay: 80,
+    checklistStepInterval: 70,
+    actionsRevealDelay: 40,
+  },
+};
 
 export const heroMetadata = {
   ticketId: 'SEC-PM-001',

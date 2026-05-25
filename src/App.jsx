@@ -14,16 +14,26 @@ import Footer from './components/Footer';
 function App() {
   const [isJiraMaximized, setIsJiraMaximized] = useState(true);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [heroHydrationMode, setHeroHydrationMode] = useState('initial');
+
+  const handleRestoreEpic = () => {
+    setHeroHydrationMode('restore');
+    setIsJiraMaximized(true);
+  };
 
   return (
     <div className="relative min-h-screen bg-console font-sans text-gray-300 selection:bg-primary/30">
       <TopNavBar
         isJiraMaximized={isJiraMaximized}
-        setIsJiraMaximized={setIsJiraMaximized}
+        onRestoreEpic={handleRestoreEpic}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
       {/* ── Hero / Epic ticket ─────────────────────────────── */}
-      <HeroContainer isJiraMaximized={isJiraMaximized} setIsJiraMaximized={setIsJiraMaximized} />
+      <HeroContainer
+        isJiraMaximized={isJiraMaximized}
+        setIsJiraMaximized={setIsJiraMaximized}
+        heroHydrationMode={heroHydrationMode}
+      />
 
       {/* ── Career timeline ────────────────────────────────── */}
       <div id="experience">
