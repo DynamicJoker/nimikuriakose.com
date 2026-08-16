@@ -23,7 +23,8 @@ const siteConfig = {
   // Executive View Data
   executiveEyebrow: 'Executive Briefing',
   executiveSubtitle: 'Security Project Management Leader.',
-  executiveDescription: 'Bridging the gap between engineering execution, enterprise security, and C-suite strategy.',
+  executiveDescription:
+    'Reducing risk across cloud and SaaS environments with vulnerability remediation and compliance programs DevOps and Engineering actually want to use backed by AI-driven tracking, real-time visibility, and automated evidence collection.',
 
   contactForm: {
     endpoint: 'https://api.web3forms.com/submit',
